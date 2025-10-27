@@ -17,7 +17,8 @@ function QrCode() {
                 value={inputValue} 
                 placeholder="Enter Link" 
                 />
-                <QRCodeSVG value={inputValue} />
+
+                {inputValue && <QRCodeSVG value={inputValue} />}
             </div>
         </div>
     )
