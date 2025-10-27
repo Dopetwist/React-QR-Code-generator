@@ -1,9 +1,24 @@
+import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 
 function QrCode() {
+    const [ inputValue, setInputValue ] = useState("");
+
+    const handleChange = (e) => {
+        setInputValue(e.target.value);
+    }
+
     return (
         <div>
-            <QRCodeSVG value="https://jonathan-afugwobi.vercel.app/" />
+            <h1> QR Code Generator </h1>
+            <div className="container">
+                <input type="text"
+                onChange={handleChange}
+                value={inputValue} 
+                placeholder="Enter Link" 
+                />
+                <QRCodeSVG value={inputValue} />
+            </div>
         </div>
     )
 }
