@@ -22,3 +22,7 @@
     width: max-content;
     padding: 0.2rem 0.5rem;
 }
+
+.btn:hover {
+    cursor: pointer;
+}
