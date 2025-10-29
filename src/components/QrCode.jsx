@@ -6,14 +6,31 @@ function QrCode() {
     const [ code, setCode ] = useState();
     const [ titleValue, setTitleValue ] = useState("");
     const [ bgValue, setBgValue ] = useState("");
-    const [ fgValue, setfgValue ] = useState("");
+    const [ fgValue, setFgValue ] = useState("");
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
     }
 
+    const handleTitle = (e) => {
+        setTitleValue(e.target.value);
+    }
+
+    const handleBackground = (e) => {
+        setBgValue(e.target.value);
+    }
+
+    const handleForeground = (e) => {
+        setFgValue(e.target.value);
+    }
+
     function handleClick() {
-        setCode(<QRCodeSVG value={inputValue} />);
+        setCode(<QRCodeSVG 
+            value={inputValue}
+            title={titleValue}
+            bgColor={bgValue}
+            fgColor={fgValue}
+        />);
     }
 
 
@@ -28,11 +45,23 @@ function QrCode() {
                     placeholder="Enter Link or Phone Number" 
                     />
 
-                    <input type="text" value="" placeholder="Title of the QR Code" />
+                    <input type="text"
+                    onChange={handleTitle}
+                    value={titleValue} 
+                    placeholder="Title of the QR Code" 
+                    />
 
-                    <input type="text" value="" placeholder="Enter Background Color (optional)" />
+                    <input type="text"
+                    onChange={handleBackground}
+                    value={bgValue} 
+                    placeholder="Enter Background Color (optional)" 
+                    />
 
-                    <input type="text" value="" placeholder="Enter Foreground Color (optional)" />
+                    <input type="text"
+                    onChange={handleForeground}
+                    value={fgValue} 
+                    placeholder="Enter Foreground Color (optional)" 
+                    />
 
                     <input type="file" />
 
