@@ -4,6 +4,9 @@ import { QRCodeSVG } from "qrcode.react";
 function QrCode() {
     const [ inputValue, setInputValue ] = useState("");
     const [ code, setCode ] = useState();
+    const [ titleValue, setTitleValue ] = useState("");
+    const [ bgValue, setBgValue ] = useState("");
+    const [ fgValue, setfgValue ] = useState("");
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
@@ -23,6 +26,14 @@ function QrCode() {
                 value={inputValue} 
                 placeholder="Enter Link or Phone Number" 
                 />
+
+                <input type="text" value="" placeholder="Title of the QR Code" />
+
+                <input type="text" value="" placeholder="Enter Background Color" />
+
+                <input type="text" value="" placeholder="Enter Foreground Color" />
+
+                <input type="file" />
 
                 <button className="btn"
                 onClick={handleClick}
