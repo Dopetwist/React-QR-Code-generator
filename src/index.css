@@ -17,3 +17,8 @@
     margin-bottom: 2rem;
     padding: 0.5rem 1rem;
 }
+
+.btn {
+    width: max-content;
+    padding: 0.2rem 0.5rem;
+}

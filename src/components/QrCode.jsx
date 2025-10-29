@@ -3,10 +3,12 @@ import { QRCodeSVG } from "qrcode.react";
 
 function QrCode() {
     const [ inputValue, setInputValue ] = useState("");
+    const [ buttonText, setButtonText ] = useState("Generate");
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
     }
+
 
     return (
         <div>
@@ -17,6 +19,8 @@ function QrCode() {
                 value={inputValue} 
                 placeholder="Enter Link" 
                 />
+
+                <button className="btn"> {buttonText} </button>
 
                 {inputValue && <QRCodeSVG value={inputValue} />}
             </div>
