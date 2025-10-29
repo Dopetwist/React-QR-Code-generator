@@ -3,16 +3,13 @@ import { QRCodeSVG } from "qrcode.react";
 
 function QrCode() {
     const [ inputValue, setInputValue ] = useState("");
-    const [ buttonText, setButtonText ] = useState("Generate");
-    const [ click, setClick ] = useState(false);
-    const [ code, setCode ] = useState("");
+    const [ code, setCode ] = useState();
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
     }
 
     function handleClick() {
-        setClick(true);
         setCode(<QRCodeSVG value={inputValue} />);
     }
 
@@ -30,10 +27,12 @@ function QrCode() {
                 <button className="btn"
                 onClick={handleClick}
                 > 
-                    {buttonText} 
+                    Generate
                 </button>
 
-               <img src={code} alt="QR Code" />
+                <div className="img-con">
+                    {code}
+                </div>
             </div>
         </div>
     )
