@@ -21,7 +21,7 @@ function QrCode() {
                 <input type="text"
                 onChange={handleChange}
                 value={inputValue} 
-                placeholder="Enter Link" 
+                placeholder="Enter Link or Phone Number" 
                 />
 
                 <button className="btn"
