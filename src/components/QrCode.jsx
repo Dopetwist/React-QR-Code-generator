@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
+import ImgFile from "./ImgFile";
 
 function QrCode() {
     const [ inputValue, setInputValue ] = useState("");
@@ -7,6 +8,8 @@ function QrCode() {
     const [ titleValue, setTitleValue ] = useState("");
     const [ bgValue, setBgValue ] = useState("");
     const [ fgValue, setFgValue ] = useState("");
+    const [ imgValue, setImgValue ] = useState("");
+    
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
@@ -24,14 +27,29 @@ function QrCode() {
         setFgValue(e.target.value);
     }
 
-    function handleClick() {
-        setCode(<QRCodeSVG 
-            value={inputValue}
-            title={titleValue}
-            bgColor={bgValue}
-            fgColor={fgValue}
-        />);
+    function handleClick(event) {
+        event.preventDefault();
+        
+        setCode(<div>
+            <h1 className="title"> {titleValue} </h1>
+            <QRCodeSVG 
+                value={inputValue}
+                title={titleValue}
+                bgColor={bgValue}
+                fgColor={fgValue}
+            />
+        </div>);
     }
+
+    // useEffect(() => {
+    //     const checkImg = (e) => {
+    //         setImgValue(e.target.value)
+    //     }
+    // }, []);
+
+    // const checkImg = (e) => {
+    //     setImgValue(e.target.value)
+    // }
 
 
     return (
@@ -41,29 +59,34 @@ function QrCode() {
                 <form action="#">
                     <input type="text"
                     onChange={handleChange}
-                    value={inputValue} 
+                    value={inputValue}
+                    name="link"
                     placeholder="Enter Link or Phone Number" 
                     />
 
                     <input type="text"
                     onChange={handleTitle}
                     value={titleValue} 
+                    name="title"
                     placeholder="Title of the QR Code" 
                     />
 
                     <input type="text"
                     onChange={handleBackground}
                     value={bgValue} 
+                    name="background"
                     placeholder="Enter Background Color (optional)" 
                     />
 
                     <input type="text"
                     onChange={handleForeground}
-                    value={fgValue} 
+                    value={fgValue}
+                    name="foreground"
                     placeholder="Enter Foreground Color (optional)" 
                     />
 
-                    <input type="file" />
+                    <ImgFile />
+
 
                     <button className="btn"
                     onClick={handleClick}
