@@ -27,12 +27,15 @@ function QrCode() {
     function handleClick(event) {
         event.preventDefault();
         
-        setCode(<QRCodeSVG 
-            value={inputValue}
-            title={titleValue}
-            bgColor={bgValue}
-            fgColor={fgValue}
-        />);
+        setCode(<div>
+            <h1 className="title"> {titleValue} </h1>
+            <QRCodeSVG 
+                value={inputValue}
+                title={titleValue}
+                bgColor={bgValue}
+                fgColor={fgValue}
+            />
+        </div>);
     }
 
 
