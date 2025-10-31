@@ -24,7 +24,9 @@ function QrCode() {
         setFgValue(e.target.value);
     }
 
-    function handleClick() {
+    function handleClick(event) {
+        event.preventDefault();
+        
         setCode(<QRCodeSVG 
             value={inputValue}
             title={titleValue}
