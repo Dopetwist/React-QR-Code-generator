@@ -41,16 +41,6 @@ function QrCode() {
         </div>);
     }
 
-    // useEffect(() => {
-    //     const checkImg = (e) => {
-    //         setImgValue(e.target.value)
-    //     }
-    // }, []);
-
-    // const checkImg = (e) => {
-    //     setImgValue(e.target.value)
-    // }
-
 
     return (
         <div>

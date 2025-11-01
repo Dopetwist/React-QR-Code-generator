@@ -1,13 +1,23 @@
 import { useState } from "react";
 
 function ImgFile() {
-    const [ imgArray, setImgArray ] = useState([]);
+    const [ images, setImages ] = useState([]);
+
+    const handleFile = (e) => {
+        const files = Array.from(e.target.files);
+
+        const urls = files.map(file => URL.createObjectURL(file))
+
+        setImages(urls);
+
+        console.log(urls);
+    }
+
 
     return (
         <div>
-            <input type="file" value={imgArray} onChange={(e) => {imgArray.push(e.target.value)}} />
+            <input type="file" onChange={handleFile} multiple />
 
-            {console.log(imgArray)}
         </div>
     )
 }
