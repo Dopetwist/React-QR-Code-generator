@@ -1,13 +1,11 @@
-import { useState } from "react";
 
-function ImgFile() {
-    const [ imgArray, setImgArray ] = useState([]);
+function ImgFile(props) {
+
 
     return (
         <div>
-            <input type="file" value={imgArray} onChange={(e) => {imgArray.push(e.target.value)}} />
+            <input type="file" onChange={props.func} multiple />
 
-            {console.log(imgArray)}
         </div>
     )
 }

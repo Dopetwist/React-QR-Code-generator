@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import ImgFile from "./ImgFile";
 
@@ -8,8 +8,18 @@ function QrCode() {
     const [ titleValue, setTitleValue ] = useState("");
     const [ bgValue, setBgValue ] = useState("");
     const [ fgValue, setFgValue ] = useState("");
-    const [ imgValue, setImgValue ] = useState("");
+    const [ images, setImages ] = useState([]);
     
+
+    const handleFile = (e) => {
+        const files = Array.from(e.target.files);
+
+        const urls = files.map(file => URL.createObjectURL(file))
+
+        setImages(urls);
+    }
+    
+
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
@@ -37,19 +47,18 @@ function QrCode() {
                 title={titleValue}
                 bgColor={bgValue}
                 fgColor={fgValue}
+                imageSettings={{
+                    src: images,
+                    x: undefined,
+                    y: undefined,
+                    height: 30,
+                    width: 30,
+                    opacity: 1,
+                    excavate: true,
+                }}
             />
         </div>);
     }
-
-    // useEffect(() => {
-    //     const checkImg = (e) => {
-    //         setImgValue(e.target.value)
-    //     }
-    // }, []);
-
-    // const checkImg = (e) => {
-    //     setImgValue(e.target.value)
-    // }
 
 
     return (
@@ -85,7 +94,9 @@ function QrCode() {
                     placeholder="Enter Foreground Color (optional)" 
                     />
 
-                    <ImgFile />
+                    <ImgFile
+                    func={handleFile}
+                     />
 
 
                     <button className="btn"
