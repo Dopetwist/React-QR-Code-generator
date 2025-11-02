@@ -34,7 +34,7 @@
     padding: 0;
 }
 
-.container input#no {
+.container div.no {
     margin-left: 1rem;
 }
 
@@ -60,5 +60,6 @@ section.checkbox {
 }
 
 .radioBtns {
+    width: max-content;
     display: flex;
 }
