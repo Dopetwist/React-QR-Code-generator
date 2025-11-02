@@ -9,6 +9,7 @@ function QrCode() {
     const [ bgValue, setBgValue ] = useState("");
     const [ fgValue, setFgValue ] = useState("");
     const [ images, setImages ] = useState([]);
+    const [ checkExcavate, setExcavate ] = useState(false);
     
 
     const handleFile = (e) => {
@@ -94,9 +95,24 @@ function QrCode() {
                     placeholder="Enter Foreground Color (optional)" 
                     />
 
+                    <section className="logo">
+                        <p> Insert logo on QR Code? </p>
+
+                        <input type="radio" id="yes" name="logo" value="yes" />
+                        <label htmlFor="yes">Yes</label>
+
+                        <input type="radio" id="no" name="logo" value="no" />
+                        <label htmlFor="no">No</label>
+                    </section>
+
                     <ImgFile
                     func={handleFile}
-                     />
+                    />
+
+                    <section className="checkbox">
+                        <input type="checkbox" id="excavate" name="images" value="excavate" />
+                        <label htmlFor="excavate">Excavate</label>
+                    </section>
 
 
                     <button className="btn"
