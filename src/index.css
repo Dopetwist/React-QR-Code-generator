@@ -58,3 +58,7 @@ section.checkbox {
 .title {
     margin-bottom: 2rem;
 }
+
+.radioBtns {
+    display: flex;
+}

@@ -98,11 +98,17 @@ function QrCode() {
                     <section className="logo">
                         <p> Insert logo on QR Code? </p>
 
-                        <input type="radio" id="yes" name="logo" value="yes" />
-                        <label htmlFor="yes">Yes</label>
+                        <div className="radioBtns">
+                            <div className="yes">
+                                <input type="radio" id="yes" name="logo" value="yes" />
+                                <label htmlFor="yes">Yes</label>
+                            </div>
 
-                        <input type="radio" id="no" name="logo" value="no" />
-                        <label htmlFor="no">No</label>
+                            <div className="no">
+                                <input type="radio" id="no" name="logo" value="no" />
+                                <label htmlFor="no">No</label>
+                            </div>
+                        </div>
                     </section>
 
                     <ImgFile
