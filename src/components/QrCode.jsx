@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import ImgFile from "./ImgFile";
 
@@ -9,7 +9,7 @@ function QrCode() {
     const [ bgValue, setBgValue ] = useState("");
     const [ fgValue, setFgValue ] = useState("");
     const [ images, setImages ] = useState([]);
-    // const [ checkExcavate, setExcavate ] = useState(false);
+    const [ checkExcavate, setExcavate ] = useState(false);
     const [ radio, setRadio ] = useState(false);
     
 
@@ -21,7 +21,11 @@ function QrCode() {
         setImages(urls);
     }
     
+    const handleCheck = (e) => {
+        setExcavate(e.target.checked);
 
+        console.log(checkExcavate);
+    }
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
@@ -56,7 +60,7 @@ function QrCode() {
                     height: 30,
                     width: 30,
                     opacity: 1,
-                    excavate: true,
+                    excavate: checkExcavate,
                 }}
             />
         </div>);
@@ -121,8 +125,14 @@ function QrCode() {
                                 />
 
                                 <section className="checkbox">
-                                    <input type="checkbox" id="excavate" name="images" value="excavate" />
-                                    <label htmlFor="excavate">Excavate</label>
+                                    <input 
+                                    type="checkbox" 
+                                    id="excavate"
+                                    checked={checkExcavate}
+                                    onChange={handleCheck}
+                                    name="images" 
+                                    value="excavate" />
+                                    <label htmlFor="excavate">Excavate (Overlap image with background)</label>
                                 </section>
                             </div>}
 
