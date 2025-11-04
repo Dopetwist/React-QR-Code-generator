@@ -13,6 +13,7 @@ function QrCode() {
     const [ radio, setRadio ] = useState(false);
     
 
+    // Store uploaded image to array
     const handleFile = (e) => {
         const files = Array.from(e.target.files);
 
