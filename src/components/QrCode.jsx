@@ -56,8 +56,8 @@ function QrCode() {
                 <QRCodeSVG 
                     value={inputValue}
                     title={titleValue}
-                    bgColor={bgValue}
-                    fgColor={fgValue}
+                    bgColor={bgValue ? bgValue : "White"}
+                    fgColor={fgValue ? fgValue : "Black"}
                     imageSettings={{
                         src: images,
                         x: undefined,
