@@ -22,11 +22,15 @@ function QrCode() {
         setImages(urls);
     }
     
-    const handleCheck = (e) => {
-        setExcavate(e.target.checked);
+    // Toggle boolean value
+    useEffect(() => {
+        const toggleExcavate = () => {
+            setExcavate(!checkExcavate);
+        }
 
-        console.log(checkExcavate);
-    }
+       toggleExcavate();
+    }, []);
+
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
@@ -48,23 +52,24 @@ function QrCode() {
         event.preventDefault();
         
         setCode(<div>
-            <h1 className="title"> {titleValue} </h1>
-            <QRCodeSVG 
-                value={inputValue}
-                title={titleValue}
-                bgColor={bgValue}
-                fgColor={fgValue}
-                imageSettings={{
-                    src: images,
-                    x: undefined,
-                    y: undefined,
-                    height: 30,
-                    width: 30,
-                    opacity: 1,
-                    excavate: checkExcavate,
-                }}
-            />
-        </div>);
+                <h1 className="title"> {titleValue} </h1>
+                <QRCodeSVG 
+                    value={inputValue}
+                    title={titleValue}
+                    bgColor={bgValue ? bgValue : "White"}
+                    fgColor={fgValue ? fgValue : "Black"}
+                    imageSettings={{
+                        src: images,
+                        x: undefined,
+                        y: undefined,
+                        height: 30,
+                        width: 30,
+                        opacity: 1,
+                        excavate: !checkExcavate
+                    }}
+                />
+            </div>
+        );
     }
 
 
@@ -73,6 +78,7 @@ function QrCode() {
             <h1> QR Code Generator </h1>
             <div className="container">
                 <form action="#">
+                    <label htmlFor="link"> Link or Number: </label>
                     <input type="text"
                     onChange={handleChange}
                     value={inputValue}
@@ -80,6 +86,7 @@ function QrCode() {
                     placeholder="Enter Link or Phone Number" 
                     />
 
+                    <label htmlFor="title"> Title: </label>
                     <input type="text"
                     onChange={handleTitle}
                     value={titleValue} 
@@ -87,22 +94,24 @@ function QrCode() {
                     placeholder="Title of the QR Code" 
                     />
 
+                    <label htmlFor="background"> Enter background color: </label>
                     <input type="text"
                     onChange={handleBackground}
                     value={bgValue} 
                     name="background"
-                    placeholder="Enter Background Color (optional)" 
+                    placeholder="Background Color (optional)" 
                     />
 
+                    <label htmlFor="foreground"> Enter foreground color: </label>
                     <input type="text"
                     onChange={handleForeground}
                     value={fgValue}
                     name="foreground"
-                    placeholder="Enter Foreground Color (optional)" 
+                    placeholder="Foreground Color (optional)" 
                     />
 
                     <section className="logo">
-                        <p> Insert logo on QR Code? </p>
+                        <p> Insert Image on QR Code? </p>
 
                         <div className="radioBtns">
                             <div className="yes"
@@ -129,10 +138,13 @@ function QrCode() {
                                     <input 
                                     type="checkbox" 
                                     id="excavate"
-                                    checked={checkExcavate}
-                                    onChange={handleCheck}
+                                    checked={!checkExcavate}
+                                    onChange={() => {setExcavate(!checkExcavate)
+                                        console.log(checkExcavate)
+                                    }}
                                     name="images" 
-                                    value="excavate" />
+                                    value="excavate" 
+                                    />
                                     <label htmlFor="excavate">Excavate (Overlap image with background)</label>
                                 </section>
                             </div>}
