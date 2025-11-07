@@ -52,23 +52,24 @@ function QrCode() {
         event.preventDefault();
         
         setCode(<div>
-            <h1 className="title"> {titleValue} </h1>
-            <QRCodeSVG 
-                value={inputValue}
-                title={titleValue}
-                bgColor={bgValue}
-                fgColor={fgValue}
-                imageSettings={{
-                    src: images,
-                    x: undefined,
-                    y: undefined,
-                    height: 30,
-                    width: 30,
-                    opacity: 1,
-                    excavate: checkExcavate,
-                }}
-            />
-        </div>);
+                <h1 className="title"> {titleValue} </h1>
+                <QRCodeSVG 
+                    value={inputValue}
+                    title={titleValue}
+                    bgColor={bgValue}
+                    fgColor={fgValue}
+                    imageSettings={{
+                        src: images,
+                        x: undefined,
+                        y: undefined,
+                        height: 30,
+                        width: 30,
+                        opacity: 1,
+                        excavate: checkExcavate
+                    }}
+                />
+            </div>
+        );
     }
 
 
@@ -77,6 +78,7 @@ function QrCode() {
             <h1> QR Code Generator </h1>
             <div className="container">
                 <form action="#">
+                    <label htmlFor="link"> Link or Number: </label>
                     <input type="text"
                     onChange={handleChange}
                     value={inputValue}
@@ -84,6 +86,7 @@ function QrCode() {
                     placeholder="Enter Link or Phone Number" 
                     />
 
+                    <label htmlFor="title"> Title: </label>
                     <input type="text"
                     onChange={handleTitle}
                     value={titleValue} 
@@ -91,18 +94,20 @@ function QrCode() {
                     placeholder="Title of the QR Code" 
                     />
 
+                    <label htmlFor="background"> Enter background color: </label>
                     <input type="text"
                     onChange={handleBackground}
                     value={bgValue} 
                     name="background"
-                    placeholder="Enter Background Color (optional)" 
+                    placeholder="Background Color" 
                     />
 
+                    <label htmlFor="foreground"> Enter foreground color: </label>
                     <input type="text"
                     onChange={handleForeground}
                     value={fgValue}
                     name="foreground"
-                    placeholder="Enter Foreground Color (optional)" 
+                    placeholder="Foreground Color" 
                     />
 
                     <section className="logo">
