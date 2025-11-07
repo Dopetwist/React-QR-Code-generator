@@ -25,11 +25,11 @@ function QrCode() {
     // Toggle boolean value
     useEffect(() => {
         const toggleExcavate = () => {
-            setExcavate(!checkExcavate)
+            setExcavate(!checkExcavate);
         }
 
-        toggleExcavate();
-    }, [])
+       toggleExcavate();
+    }, []);
 
 
     const handleChange = (e) => {
@@ -65,7 +65,7 @@ function QrCode() {
                         height: 30,
                         width: 30,
                         opacity: 1,
-                        excavate: checkExcavate
+                        excavate: !checkExcavate
                     }}
                 />
             </div>
@@ -99,7 +99,7 @@ function QrCode() {
                     onChange={handleBackground}
                     value={bgValue} 
                     name="background"
-                    placeholder="Background Color" 
+                    placeholder="Background Color (optional)" 
                     />
 
                     <label htmlFor="foreground"> Enter foreground color: </label>
@@ -107,7 +107,7 @@ function QrCode() {
                     onChange={handleForeground}
                     value={fgValue}
                     name="foreground"
-                    placeholder="Foreground Color" 
+                    placeholder="Foreground Color (optional)" 
                     />
 
                     <section className="logo">
@@ -139,9 +139,12 @@ function QrCode() {
                                     type="checkbox" 
                                     id="excavate"
                                     checked={!checkExcavate}
-                                    onChange={() => {setExcavate(!checkExcavate)}}
+                                    onChange={() => {setExcavate(!checkExcavate)
+                                        console.log(checkExcavate)
+                                    }}
                                     name="images" 
-                                    value="excavate" />
+                                    value="excavate" 
+                                    />
                                     <label htmlFor="excavate">Excavate (Overlap image with background)</label>
                                 </section>
                             </div>}
