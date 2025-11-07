@@ -22,11 +22,15 @@ function QrCode() {
         setImages(urls);
     }
     
-    const handleCheck = (e) => {
-        setExcavate(e.target.checked);
+    // Toggle boolean value
+    useEffect(() => {
+        const toggleExcavate = () => {
+            setExcavate(!checkExcavate)
+        }
 
-        console.log(checkExcavate);
-    }
+        toggleExcavate();
+    }, [])
+
 
     const handleChange = (e) => {
         setInputValue(e.target.value);
@@ -102,7 +106,7 @@ function QrCode() {
                     />
 
                     <section className="logo">
-                        <p> Insert logo on QR Code? </p>
+                        <p> Insert Image on QR Code? </p>
 
                         <div className="radioBtns">
                             <div className="yes"
@@ -129,8 +133,8 @@ function QrCode() {
                                     <input 
                                     type="checkbox" 
                                     id="excavate"
-                                    checked={checkExcavate}
-                                    onChange={handleCheck}
+                                    checked={!checkExcavate}
+                                    onChange={() => {setExcavate(!checkExcavate)}}
                                     name="images" 
                                     value="excavate" />
                                     <label htmlFor="excavate">Excavate (Overlap image with background)</label>
