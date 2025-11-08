@@ -1,11 +1,11 @@
 
-function LinkInput() {
+function LinkInput(props) {
     return (
         <div>
             <label htmlFor="code-link"> Link or Number: </label>
             <input type="text"
-            onChange={handleChange}
-            value={inputValue}
+            onChange={props.changeFunc}
+            value={props.text}
             id="code-link"
             name="link"
             placeholder="Enter Link or Phone Number" 

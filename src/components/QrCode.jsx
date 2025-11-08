@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import ImgFile from "./ImgFile";
+import LinkInput from "./LinkInput";
+import TitleInput from "./TitleInput";
+import BgInput from "./BgInput";
+import FgInput from "./FgInput";
 
 function QrCode() {
     const [ inputValue, setInputValue ] = useState("");
@@ -79,11 +83,26 @@ function QrCode() {
             <div className="container">
                 <form action="#">
                     
+                    <LinkInput
+                    changeFunc={handleChange}
+                    text={inputValue} 
+                    />
 
-                    
+                    <TitleInput
+                    changeFunc={handleTitle}
+                    text={titleValue} 
+                    />
 
-                    
+                    <BgInput
+                    changeFunc={handleBackground}
+                    text={bgValue} 
+                    />
 
+                    <FgInput
+                    changeFunc={handleForeground}
+                    text={fgValue} 
+                    />
+ 
                     
 
                     <section className="logo">

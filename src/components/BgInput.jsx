@@ -1,11 +1,11 @@
 
-function BgInput() {
+function BgInput(props) {
     return (
         <div>
             <label htmlFor="code-bg"> Enter background color: </label>
             <input type="text"
-            onChange={handleBackground}
-            value={bgValue}
+            onChange={props.changeFunc}
+            value={props.text}
             id="code-bg"
             name="background"
             placeholder="Background Color (optional)" 
