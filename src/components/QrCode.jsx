@@ -134,9 +134,7 @@ function QrCode() {
                                     type="checkbox" 
                                     id="excavate"
                                     checked={!checkExcavate}
-                                    onChange={() => {setExcavate(!checkExcavate)
-                                        console.log(checkExcavate)
-                                    }}
+                                    onChange={() => {setExcavate(!checkExcavate)}}
                                     name="images" 
                                     value="excavate" 
                                     />
