@@ -78,37 +78,13 @@ function QrCode() {
             <h1> QR Code Generator </h1>
             <div className="container">
                 <form action="#">
-                    <label htmlFor="link"> Link or Number: </label>
-                    <input type="text"
-                    onChange={handleChange}
-                    value={inputValue}
-                    name="link"
-                    placeholder="Enter Link or Phone Number" 
-                    />
+                    
 
-                    <label htmlFor="title"> Title: </label>
-                    <input type="text"
-                    onChange={handleTitle}
-                    value={titleValue} 
-                    name="title"
-                    placeholder="Title of the QR Code" 
-                    />
+                    
 
-                    <label htmlFor="background"> Enter background color: </label>
-                    <input type="text"
-                    onChange={handleBackground}
-                    value={bgValue} 
-                    name="background"
-                    placeholder="Background Color (optional)" 
-                    />
+                    
 
-                    <label htmlFor="foreground"> Enter foreground color: </label>
-                    <input type="text"
-                    onChange={handleForeground}
-                    value={fgValue}
-                    name="foreground"
-                    placeholder="Foreground Color (optional)" 
-                    />
+                    
 
                     <section className="logo">
                         <p> Insert Image on QR Code? </p>
