@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import ImgFile from "./ImgFile";
+import LinkInput from "./LinkInput";
+import TitleInput from "./TitleInput";
+import BgInput from "./BgInput";
+import FgInput from "./FgInput";
 
 function QrCode() {
     const [ inputValue, setInputValue ] = useState("");
@@ -78,37 +82,28 @@ function QrCode() {
             <h1> QR Code Generator </h1>
             <div className="container">
                 <form action="#">
-                    <label htmlFor="link"> Link or Number: </label>
-                    <input type="text"
-                    onChange={handleChange}
-                    value={inputValue}
-                    name="link"
-                    placeholder="Enter Link or Phone Number" 
+                    
+                    <LinkInput
+                    changeFunc={handleChange}
+                    text={inputValue} 
                     />
 
-                    <label htmlFor="title"> Title: </label>
-                    <input type="text"
-                    onChange={handleTitle}
-                    value={titleValue} 
-                    name="title"
-                    placeholder="Title of the QR Code" 
+                    <TitleInput
+                    changeFunc={handleTitle}
+                    text={titleValue} 
                     />
 
-                    <label htmlFor="background"> Enter background color: </label>
-                    <input type="text"
-                    onChange={handleBackground}
-                    value={bgValue} 
-                    name="background"
-                    placeholder="Background Color (optional)" 
+                    <BgInput
+                    changeFunc={handleBackground}
+                    text={bgValue} 
                     />
 
-                    <label htmlFor="foreground"> Enter foreground color: </label>
-                    <input type="text"
-                    onChange={handleForeground}
-                    value={fgValue}
-                    name="foreground"
-                    placeholder="Foreground Color (optional)" 
+                    <FgInput
+                    changeFunc={handleForeground}
+                    text={fgValue} 
                     />
+ 
+                    
 
                     <section className="logo">
                         <p> Insert Image on QR Code? </p>
