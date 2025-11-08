@@ -1,7 +1,7 @@
 
 function TitleInput(props) {
     return (
-        <div>
+        <div className="input-div">
             <label htmlFor="code-title"> Title: </label>
             <input type="text"
             onChange={props.changeFunc}
