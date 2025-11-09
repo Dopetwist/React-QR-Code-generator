@@ -58,10 +58,30 @@ section.checkbox {
 }
 
 .title {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .radioBtns {
     width: max-content;
     display: flex;
+}
+
+.svg-parent {
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.svg-con {
+    border: 0.2rem solid lightgray;
+    padding: 1rem;
+}
+
+#download-btn {
+    margin-top: 0.5rem;
+    padding: 0.2rem 0;
+}
+
+#download-btn:hover {
+   cursor: pointer;
 }

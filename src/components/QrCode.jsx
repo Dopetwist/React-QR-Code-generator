@@ -5,6 +5,7 @@ import LinkInput from "./LinkInput";
 import TitleInput from "./TitleInput";
 import BgInput from "./BgInput";
 import FgInput from "./FgInput";
+import Button from "./Button";
 
 function QrCode() {
     const [ inputValue, setInputValue ] = useState("");
@@ -32,7 +33,7 @@ function QrCode() {
             setExcavate(!checkExcavate);
         }
 
-       toggleExcavate();
+        toggleExcavate();
     }, []);
 
 
@@ -55,9 +56,11 @@ function QrCode() {
     function handleClick(event) {
         event.preventDefault();
         
-        setCode(<div>
-                <h1 className="title"> {titleValue} </h1>
-                <QRCodeSVG 
+        setCode(<div className="svg-parent">
+                <div className="svg-con">
+                    {titleValue && <h2 className="title"> {titleValue} </h2>}
+
+                    <QRCodeSVG 
                     value={inputValue}
                     title={titleValue}
                     bgColor={bgValue ? bgValue : "White"}
@@ -71,7 +74,10 @@ function QrCode() {
                         opacity: 1,
                         excavate: !checkExcavate
                     }}
-                />
+                    />
+                </div>
+
+                <button id="download-btn"> Download </button>
             </div>
         );
     }
@@ -142,11 +148,9 @@ function QrCode() {
                                 </section>
                             </div>}
 
-                    <button className="btn"
-                    onClick={handleClick}
-                    > 
-                        Generate
-                    </button>
+                        <Button 
+                        clickFunc={handleClick}
+                        />
                 </form>
 
                 <div className="img-con">
