@@ -5,6 +5,7 @@ import LinkInput from "./LinkInput";
 import TitleInput from "./TitleInput";
 import BgInput from "./BgInput";
 import FgInput from "./FgInput";
+import Button from "./Button";
 
 function QrCode() {
     const [ inputValue, setInputValue ] = useState("");
@@ -142,11 +143,9 @@ function QrCode() {
                                 </section>
                             </div>}
 
-                    <button className="btn"
-                    onClick={handleClick}
-                    > 
-                        Generate
-                    </button>
+                        <Button 
+                        clickFunc={handleClick}
+                        />
                 </form>
 
                 <div className="img-con">
