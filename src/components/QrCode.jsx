@@ -30,7 +30,7 @@ function QrCode() {
     // Toggle boolean value
     useEffect(() => {
         const toggleExcavate = () => {
-        setExcavate(!checkExcavate);
+            setExcavate(!checkExcavate);
         }
 
         toggleExcavate();
@@ -58,7 +58,7 @@ function QrCode() {
         
         setCode(<div className="svg-parent">
                 <div className="svg-con">
-                    <h1 className="title"> {titleValue} </h1>
+                    {titleValue && <h2 className="title"> {titleValue} </h2>}
 
                     <QRCodeSVG 
                     value={inputValue}
