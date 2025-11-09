@@ -30,10 +30,10 @@ function QrCode() {
     // Toggle boolean value
     useEffect(() => {
         const toggleExcavate = () => {
-            setExcavate(!checkExcavate);
+        setExcavate(!checkExcavate);
         }
 
-       toggleExcavate();
+        toggleExcavate();
     }, []);
 
 
@@ -56,9 +56,11 @@ function QrCode() {
     function handleClick(event) {
         event.preventDefault();
         
-        setCode(<div>
-                <h1 className="title"> {titleValue} </h1>
-                <QRCodeSVG 
+        setCode(<div className="svg-parent">
+                <div className="svg-con">
+                    <h1 className="title"> {titleValue} </h1>
+
+                    <QRCodeSVG 
                     value={inputValue}
                     title={titleValue}
                     bgColor={bgValue ? bgValue : "White"}
@@ -72,7 +74,10 @@ function QrCode() {
                         opacity: 1,
                         excavate: !checkExcavate
                     }}
-                />
+                    />
+                </div>
+
+                <button id="download-btn"> Download </button>
             </div>
         );
     }
