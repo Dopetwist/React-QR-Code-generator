@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import ImgFile from "./ImgFile";
 import LinkInput from "./LinkInput";
@@ -16,6 +17,8 @@ function QrCode() {
     const [ images, setImages ] = useState([]);
     const [ checkExcavate, setExcavate ] = useState(false);
     const [ radio, setRadio ] = useState(false);
+
+    const qrRef = useRef();
     
 
     // Store uploaded image to array
@@ -53,11 +56,40 @@ function QrCode() {
         setFgValue(e.target.value);
     }
 
+    const downloadQR = () => {
+        const svg = svgRef.current.querySelector("svg");
+        const svgData = new XMLSerializer().serializeToString(svg);
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const img = new Image();
+        const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+        const url = URL.createObjectURL(svgBlob);
+
+        img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            URL.revokeObjectURL(url);
+
+            const pngUrl = canvas.toDataURL("image/png");
+
+            const link = document.createElement("a");
+            link.href = pngUrl;
+            link.download = "my-qr-code.png";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        img.src = url;
+    };
+
     function handleClick(event) {
         event.preventDefault();
         
         setCode(<div className="svg-parent">
-                <div className="svg-con">
+                <div className="svg-con" ref={qrRef}>
                     {titleValue && <h2 className="title"> {titleValue} </h2>}
 
                     <QRCodeSVG 
@@ -77,7 +109,12 @@ function QrCode() {
                     />
                 </div>
 
-                <button id="download-btn"> Download </button>
+                <button 
+                onClick={downloadQR}
+                id="download-btn"
+                > 
+                    Download 
+                </button>
             </div>
         );
     }
