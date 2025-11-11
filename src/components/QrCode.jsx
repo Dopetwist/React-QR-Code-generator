@@ -92,7 +92,8 @@ function QrCode() {
                 <div className="svg-con" ref={qrRef}>
                     {titleValue && <h2 className="title"> {titleValue} </h2>}
 
-                    <QRCodeSVG 
+                    <QRCodeSVG
+                    size={150}
                     value={inputValue}
                     title={titleValue}
                     bgColor={bgValue ? bgValue : "White"}
