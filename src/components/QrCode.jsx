@@ -18,7 +18,7 @@ function QrCode() {
     const [ checkExcavate, setExcavate ] = useState(false);
     const [ radio, setRadio ] = useState(false);
 
-    const qrRef = useRef();
+    const svgRef = useRef();
     
 
     // Store uploaded image to array
@@ -89,7 +89,7 @@ function QrCode() {
         event.preventDefault();
         
         setCode(<div className="svg-parent">
-                <div className="svg-con" ref={qrRef}>
+                <div className="svg-con" ref={svgRef}>
                     {titleValue && <h2 className="title"> {titleValue} </h2>}
 
                     <QRCodeSVG
