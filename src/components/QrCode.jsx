@@ -25,9 +25,11 @@ function QrCode() {
     const handleFile = (e) => {
         const files = Array.from(e.target.files);
 
-        const urls = files.map(file => URL.createObjectURL(file))
+        if (files) {
+            const urls = files.map(file => URL.createObjectURL(file))
 
-        setImages(urls);
+            setImages(urls);
+        }
     }
     
     // Toggle boolean value
@@ -62,24 +64,48 @@ function QrCode() {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
+        const qrSize = 150;
+
         const img = new Image();
         const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
         const url = URL.createObjectURL(svgBlob);
 
         img.onload = () => {
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
+            canvas.width = qrSize;
+            canvas.height = qrSize;
+            ctx.drawImage(img, 0, 0, qrSize, qrSize);
             URL.revokeObjectURL(url);
 
-            const pngUrl = canvas.toDataURL("image/png");
+            if (images) {
+                const logo = new Image();
+                const selectedLogo = images[0];
+                logo.src = selectedLogo;
 
-            const link = document.createElement("a");
-            link.href = pngUrl;
-            link.download = "my-qr-code.png";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+                logo.onload = () => {
+                    const logoSize = 40;
+                    const x = (qrSize - logoSize) / 2;
+                    const y = (qrSize - logoSize) / 2;
+                    ctx.drawImage(logo, x, y, logoSize, logoSize);
+
+                    const pngUrl = canvas.toDataURL("image/png");
+
+                    const link = document.createElement("a");
+                    link.href = pngUrl;
+                    link.download = "qr-code-with-logo.png";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            } else {
+                const pngUrl = canvas.toDataURL("image/png");
+
+                const link = document.createElement("a");
+                link.href = pngUrl;
+                link.download = "qr-code-without-logo.png";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
         };
 
         img.src = url;
@@ -102,8 +128,8 @@ function QrCode() {
                         src: images,
                         x: undefined,
                         y: undefined,
-                        height: 30,
-                        width: 30,
+                        height: 40,
+                        width: 40,
                         opacity: 1,
                         excavate: !checkExcavate
                     }}
