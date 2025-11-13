@@ -26,11 +26,25 @@ function QrCode() {
         const files = Array.from(e.target.files);
 
         if (files) {
+            // revoke previous if any
+            if (images) URL.revokeObjectURL(images);
+
             const urls = files.map(file => URL.createObjectURL(file))
 
             setImages(urls);
         }
     }
+
+    const triggerDownload = (dataUrl, filename = "qr.png") => {
+        const link = document.createElement("a");
+        link.href = dataUrl;
+        link.download = filename;
+
+        // append -> click -> remove is most compatible
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
     
     // Toggle boolean value
     useEffect(() => {
@@ -61,6 +75,8 @@ function QrCode() {
     // Download generated QR Code Image
     const downloadQR = () => {
         const svg = svgRef.current.querySelector("svg");
+
+
         const svgData = new XMLSerializer().serializeToString(svg);
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
@@ -77,6 +93,17 @@ function QrCode() {
             ctx.drawImage(img, 0, 0, qrSize, qrSize);
             URL.revokeObjectURL(url);
 
+            const drawTextAndFinish = () => {
+                // draw brand name below
+                ctx.font = "bold 18px Arial, sans-serif";
+                ctx.fillStyle = "#000";
+                ctx.textAlign = "center";
+                ctx.fillText("Dopetwist", qrSize / 2, qrSize + 30);
+
+                const pngDataUrl = canvas.toDataURL("image/png");
+                triggerDownload(pngDataUrl, images ? "qr-with-logo.png" : "qr.png");
+            };
+
             if (images) {
                 const logo = new Image();
                 const selectedLogo = images[0];
@@ -88,24 +115,12 @@ function QrCode() {
                     const y = (qrSize - logoSize) / 2;
                     ctx.drawImage(logo, x, y, logoSize, logoSize);
 
-                    const pngUrl = canvas.toDataURL("image/png");
-
-                    const link = document.createElement("a");
-                    link.href = pngUrl;
-                    link.download = "qr-code-with-logo.png";
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
+                    drawTextAndFinish();
                 }
-            } else {
-                const pngUrl = canvas.toDataURL("image/png");
 
-                const link = document.createElement("a");
-                link.href = pngUrl;
-                link.download = "qr-code-without-logo.png";
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                logo.src = images;
+            } else {
+                drawTextAndFinish();
             }
         };
 
