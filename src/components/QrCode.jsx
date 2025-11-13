@@ -102,7 +102,7 @@ function QrCode() {
                 ctx.fillText("Dopetwist", qrSize / 2, qrSize + 30);
 
                 const pngDataUrl = canvas.toDataURL("image/png");
-                triggerDownload(pngDataUrl, images ? "qr-with-logo.png" : "qr.png");
+                triggerDownload(pngDataUrl, images[0] ? "qr-with-logo.png" : "qr-code.png");
             };
 
             if (images) {
