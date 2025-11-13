@@ -81,7 +81,7 @@ function QrCode() {
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
-        const qrSize = 150;
+        const qrSize = 160;
 
         // Convert SVG to PNG
         const img = new Image();
@@ -146,7 +146,7 @@ function QrCode() {
                     {titleValue && <h2 className="title"> {titleValue} </h2>}
 
                     <QRCodeSVG
-                    size={150}
+                    size={160}
                     value={inputValue}
                     title={titleValue}
                     bgColor={bgValue ? bgValue : "White"}
