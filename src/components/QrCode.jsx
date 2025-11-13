@@ -58,6 +58,7 @@ function QrCode() {
         setFgValue(e.target.value);
     }
 
+    // Download generated QR Code Image
     const downloadQR = () => {
         const svg = svgRef.current.querySelector("svg");
         const svgData = new XMLSerializer().serializeToString(svg);
