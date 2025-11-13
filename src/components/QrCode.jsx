@@ -83,6 +83,7 @@ function QrCode() {
 
         const qrSize = 150;
 
+        // Convert SVG to PNG
         const img = new Image();
         const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
         const url = URL.createObjectURL(svgBlob);
@@ -118,10 +119,20 @@ function QrCode() {
                     drawTextAndFinish();
                 }
 
+                logo.onerror = (err) => {
+                    console.warn("Logo failed to load, proceeding without it.", err);
+                    drawTextAndFinish();
+                };
+
                 logo.src = images;
             } else {
                 drawTextAndFinish();
             }
+        };
+
+        img.onerror = (err) => {
+            console.error("Failed to load QR image from SVG blob", err);
+            URL.revokeObjectURL(url);
         };
 
         img.src = url;
