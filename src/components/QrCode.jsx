@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
+import html2canvas from "html2canvas";
 import ImgFile from "./ImgFile";
 import LinkInput from "./LinkInput";
 import TitleInput from "./TitleInput";
@@ -18,7 +19,7 @@ function QrCode() {
     const [ checkExcavate, setExcavate ] = useState(false);
     const [ radio, setRadio ] = useState(false);
 
-    const svgRef = useRef();
+    const qrRef = useRef();
     
 
     // Store uploaded image to array
@@ -35,16 +36,16 @@ function QrCode() {
         }
     }
 
-    const triggerDownload = (dataUrl, filename = "qr.png") => {
-        const link = document.createElement("a");
-        link.href = dataUrl;
-        link.download = filename;
+    // const triggerDownload = (dataUrl, filename = "qr.png") => {
+    //     const link = document.createElement("a");
+    //     link.href = dataUrl;
+    //     link.download = filename;
 
-        // append -> click -> remove is most compatible
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
+    //     // append -> click -> remove is most compatible
+    //     document.body.appendChild(link);
+    //     link.click();
+    //     document.body.removeChild(link);
+    // };
     
     // Toggle boolean value
     useEffect(() => {
@@ -73,76 +74,87 @@ function QrCode() {
     }
 
     // Download generated QR Code Image
-    const downloadQR = () => {
-        const svg = svgRef.current.querySelector("svg");
+    const handleDownload = async () => {
+
+        const element = qrRef.current;
+
+        if (!element) return;
+
+        const canvas = await html2canvas(element, {
+            useCORS: true, // supports external images/logos
+            scale: 2 // increases image quality
+        });
+
+        const dataURL = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = dataURL;
+        link.download = "qr-code.png";
+        link.click();
 
 
-        const svgData = new XMLSerializer().serializeToString(svg);
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
+        // const svg = svgRef.current.querySelector("svg");
 
-        const qrSize = 160;
 
-        // Convert SVG to PNG
-        const img = new Image();
-        const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
-        const url = URL.createObjectURL(svgBlob);
+        // const svgData = new XMLSerializer().serializeToString(svg);
+        // const canvas = document.createElement("canvas");
+        // const ctx = canvas.getContext("2d");
 
-        img.onload = () => {
-            canvas.width = qrSize;
-            canvas.height = qrSize;
-            ctx.drawImage(img, 0, 0, qrSize, qrSize);
-            URL.revokeObjectURL(url);
+        // const qrSize = 160;
 
-            const drawTextAndFinish = () => {
-                // draw brand name below
-                ctx.font = "bold 18px Arial, sans-serif";
-                ctx.fillStyle = "#000";
-                ctx.textAlign = "center";
-                ctx.fillText("Dopetwist", qrSize / 2, qrSize + 30);
+        // // Convert SVG to PNG
+        // const img = new Image();
+        // const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+        // const url = URL.createObjectURL(svgBlob);
 
-                const pngDataUrl = canvas.toDataURL("image/png");
-                triggerDownload(pngDataUrl, images[0] ? "qr-with-logo.png" : "qr-code.png");
-            };
+        // img.onload = () => {
+        //     canvas.width = qrSize;
+        //     canvas.height = qrSize;
+        //     ctx.drawImage(img, 0, 0, qrSize, qrSize);
+        //     URL.revokeObjectURL(url);
 
-            if (images) {
-                const logo = new Image();
-                const selectedLogo = images[0];
-                logo.src = selectedLogo;
+        //     const drawTextAndFinish = () => {
+        //         const pngDataUrl = canvas.toDataURL("image/png");
+        //         triggerDownload(pngDataUrl, images[0] ? "qr-with-logo.png" : "qr-code.png");
+        //     };
 
-                logo.onload = () => {
-                    const logoSize = 40;
-                    const x = (qrSize - logoSize) / 2;
-                    const y = (qrSize - logoSize) / 2;
-                    ctx.drawImage(logo, x, y, logoSize, logoSize);
+        //     if (images) {
+        //         const logo = new Image();
+        //         const selectedLogo = images[0];
+        //         logo.src = selectedLogo;
 
-                    drawTextAndFinish();
-                }
+        //         logo.onload = () => {
+        //             const logoSize = 40;
+        //             const x = (qrSize - logoSize) / 2;
+        //             const y = (qrSize - logoSize) / 2;
+        //             ctx.drawImage(logo, x, y, logoSize, logoSize);
 
-                logo.onerror = (err) => {
-                    console.warn("Logo failed to load, proceeding without it.", err);
-                    drawTextAndFinish();
-                };
+        //             drawTextAndFinish();
+        //         }
 
-                logo.src = images;
-            } else {
-                drawTextAndFinish();
-            }
-        };
+        //         logo.onerror = (err) => {
+        //             console.warn("Logo failed to load, proceeding without it.", err);
+        //             drawTextAndFinish();
+        //         };
 
-        img.onerror = (err) => {
-            console.error("Failed to load QR image from SVG blob", err);
-            URL.revokeObjectURL(url);
-        };
+        //         logo.src = images;
+        //     } else {
+        //         drawTextAndFinish();
+        //     }
+        // };
 
-        img.src = url;
+        // img.onerror = (err) => {
+        //     console.error("Failed to load QR image from SVG blob", err);
+        //     URL.revokeObjectURL(url);
+        // };
+
+        // img.src = url;
     };
 
     function handleClick(event) {
         event.preventDefault();
         
         setCode(<div className="svg-parent">
-                <div className="svg-con" ref={svgRef}>
+                <div className="svg-con" ref={qrRef}>
                     {titleValue && <h2 className="title"> {titleValue} </h2>}
 
                     <QRCodeSVG
@@ -164,7 +176,7 @@ function QrCode() {
                 </div>
 
                 <button 
-                onClick={downloadQR}
+                onClick={handleDownload}
                 id="download-btn"
                 > 
                     Download 
