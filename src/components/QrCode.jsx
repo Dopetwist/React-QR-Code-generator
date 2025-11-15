@@ -95,12 +95,6 @@ function QrCode() {
             URL.revokeObjectURL(url);
 
             const drawTextAndFinish = () => {
-                // draw brand name below
-                ctx.font = "bold 18px Arial, sans-serif";
-                ctx.fillStyle = "#000";
-                ctx.textAlign = "center";
-                ctx.fillText("Dopetwist", qrSize / 2, qrSize + 30);
-
                 const pngDataUrl = canvas.toDataURL("image/png");
                 triggerDownload(pngDataUrl, images[0] ? "qr-with-logo.png" : "qr-code.png");
             };
