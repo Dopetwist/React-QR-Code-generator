@@ -85,10 +85,39 @@ function QrCode() {
             scale: 2 // increases image quality
         });
 
+        //  const drawTextAndFinish = () => {
+        //     const pngDataUrl = canvas.toDataURL("image/png");
+        //     triggerDownload(pngDataUrl, images[0] ? "qr-with-logo.png" : "qr-code.png");
+        // };
+
+        //     if (images) {
+        //         const logo = new Image();
+        //         const selectedLogo = images[0];
+        //         logo.src = selectedLogo;
+
+        //         logo.onload = () => {
+        //             const logoSize = 40;
+        //             const x = (qrSize - logoSize) / 2;
+        //             const y = (qrSize - logoSize) / 2;
+        //             ctx.drawImage(logo, x, y, logoSize, logoSize);
+
+        //             drawTextAndFinish();
+        //         }
+
+        //         logo.onerror = (err) => {
+        //             console.warn("Logo failed to load, proceeding without it.", err);
+        //             drawTextAndFinish();
+        //         };
+
+        //         logo.src = images;
+        //     } else {
+        //         drawTextAndFinish();
+        //     }
+
         const dataURL = canvas.toDataURL("image/png");
         const link = document.createElement("a");
         link.href = dataURL;
-        link.download = "qr-code.png";
+        link.download = (images[0] ? "qr-with-logo.png" : "qr-code.png");
         link.click();
 
 
