@@ -88,7 +88,7 @@ function QrCode() {
         const dataURL = canvas.toDataURL("image/png");
         const link = document.createElement("a");
         link.href = dataURL;
-        link.download = (base64Image ? "qr-with-logo.png" : "qr-code.png");
+        link.download = (titleValue ? `${titleValue}.png` : "qr-code.png");
         link.click();
     };
 
