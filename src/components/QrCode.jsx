@@ -22,8 +22,7 @@ function QrCode() {
     const qrRef = useRef();
 
 
-    // Convert uploaded images to Base64
-
+    // Function to convert uploaded images to Base64
     const convertToBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -34,14 +33,11 @@ function QrCode() {
     };
     
 
-    // Store uploaded image to array
+    // Set base64 image to state
     const handleFile = async (e) => {
-        // const files = Array.from(e.target.files);
 
         const file = e.target.files[0];
         if (!file) return;
-
-        // const urls = files.map(file => URL.createObjectURL(file))
 
         const base64 = await convertToBase64(file);
 
