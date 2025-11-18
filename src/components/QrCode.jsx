@@ -15,23 +15,37 @@ function QrCode() {
     const [ titleValue, setTitleValue ] = useState("");
     const [ bgValue, setBgValue ] = useState("");
     const [ fgValue, setFgValue ] = useState("");
-    const [ images, setImages ] = useState([]);
+    const [ base64Image, setBase64Image ] = useState(null);
     const [ checkExcavate, setExcavate ] = useState(false);
     const [ radio, setRadio ] = useState(false);
 
     const qrRef = useRef();
+
+
+    // Convert uploaded images to Base64
+
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
+    };
     
 
     // Store uploaded image to array
-    const handleFile = (e) => {
-        const files = Array.from(e.target.files);
+    const handleFile = async (e) => {
+        // const files = Array.from(e.target.files);
 
-        if (files) {
+        const file = e.target.files[0];
+        if (!file) return;
 
-            const urls = files.map(file => URL.createObjectURL(file))
+        // const urls = files.map(file => URL.createObjectURL(file))
 
-            setImages(urls);
-        }
+        const base64 = await convertToBase64(file);
+
+        setBase64Image(base64);
     }
 
     
@@ -60,7 +74,7 @@ function QrCode() {
     const handleForeground = (e) => {
         setFgValue(e.target.value);
     }
-    
+
 
     // Download generated QR Code Image
     const handleDownload = async () => {
@@ -71,13 +85,14 @@ function QrCode() {
 
         const canvas = await html2canvas(element, {
             useCORS: true, // supports external images/logos
+            allowTaint: true,
             scale: 2 // increases image quality
         });
 
         const dataURL = canvas.toDataURL("image/png");
         const link = document.createElement("a");
         link.href = dataURL;
-        link.download = (images[0] ? "qr-with-logo.png" : "qr-code.png");
+        link.download = (base64Image[0] ? "qr-with-logo.png" : "qr-code.png");
         link.click();
     };
 
@@ -96,7 +111,7 @@ function QrCode() {
                     bgColor={bgValue ? bgValue : "White"}
                     fgColor={fgValue ? fgValue : "Black"}
                     imageSettings={{
-                        src: images,
+                        src: base64Image,
                         x: undefined,
                         y: undefined,
                         height: 40,
