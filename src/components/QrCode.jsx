@@ -21,6 +21,10 @@ function QrCode() {
 
     const qrRef = useRef();
 
+    const qrSize = 160;
+
+    const logoSize = Math.min(80, qrSize * 0.22); // adaptive size
+
 
     // Function to convert uploaded images to Base64
     const convertToBase64 = (file) => {
@@ -88,7 +92,7 @@ function QrCode() {
         const dataURL = canvas.toDataURL("image/png");
         const link = document.createElement("a");
         link.href = dataURL;
-        link.download = (base64Image[0] ? "qr-with-logo.png" : "qr-code.png");
+        link.download = (titleValue ? `${titleValue}.png` : "qr-code.png");
         link.click();
     };
 
@@ -101,7 +105,7 @@ function QrCode() {
                     {titleValue && <h2 className="title"> {titleValue} </h2>}
 
                     <QRCodeSVG
-                    size={160}
+                    size={qrSize}
                     value={inputValue}
                     title={titleValue}
                     bgColor={bgValue ? bgValue : "White"}
@@ -110,8 +114,8 @@ function QrCode() {
                         src: base64Image,
                         x: undefined,
                         y: undefined,
-                        height: 40,
-                        width: 40,
+                        height: logoSize,
+                        width: logoSize,
                         opacity: 1,
                         excavate: !checkExcavate
                     }}
