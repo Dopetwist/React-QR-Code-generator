@@ -27,8 +27,6 @@ function QrCode() {
         const files = Array.from(e.target.files);
 
         if (files) {
-            // revoke previous if any
-            if (images) URL.revokeObjectURL(images);
 
             const urls = files.map(file => URL.createObjectURL(file))
 
@@ -36,16 +34,6 @@ function QrCode() {
         }
     }
 
-    // const triggerDownload = (dataUrl, filename = "qr.png") => {
-    //     const link = document.createElement("a");
-    //     link.href = dataUrl;
-    //     link.download = filename;
-
-    //     // append -> click -> remove is most compatible
-    //     document.body.appendChild(link);
-    //     link.click();
-    //     document.body.removeChild(link);
-    // };
     
     // Toggle boolean value
     useEffect(() => {
@@ -72,6 +60,7 @@ function QrCode() {
     const handleForeground = (e) => {
         setFgValue(e.target.value);
     }
+    
 
     // Download generated QR Code Image
     const handleDownload = async () => {
@@ -85,99 +74,13 @@ function QrCode() {
             scale: 2 // increases image quality
         });
 
-        //  const drawTextAndFinish = () => {
-        //     const pngDataUrl = canvas.toDataURL("image/png");
-        //     triggerDownload(pngDataUrl, images[0] ? "qr-with-logo.png" : "qr-code.png");
-        // };
-
-        //     if (images) {
-        //         const logo = new Image();
-        //         const selectedLogo = images[0];
-        //         logo.src = selectedLogo;
-
-        //         logo.onload = () => {
-        //             const logoSize = 40;
-        //             const x = (qrSize - logoSize) / 2;
-        //             const y = (qrSize - logoSize) / 2;
-        //             ctx.drawImage(logo, x, y, logoSize, logoSize);
-
-        //             drawTextAndFinish();
-        //         }
-
-        //         logo.onerror = (err) => {
-        //             console.warn("Logo failed to load, proceeding without it.", err);
-        //             drawTextAndFinish();
-        //         };
-
-        //         logo.src = images;
-        //     } else {
-        //         drawTextAndFinish();
-        //     }
-
         const dataURL = canvas.toDataURL("image/png");
         const link = document.createElement("a");
         link.href = dataURL;
         link.download = (images[0] ? "qr-with-logo.png" : "qr-code.png");
         link.click();
-
-
-        // const svg = svgRef.current.querySelector("svg");
-
-
-        // const svgData = new XMLSerializer().serializeToString(svg);
-        // const canvas = document.createElement("canvas");
-        // const ctx = canvas.getContext("2d");
-
-        // const qrSize = 160;
-
-        // // Convert SVG to PNG
-        // const img = new Image();
-        // const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
-        // const url = URL.createObjectURL(svgBlob);
-
-        // img.onload = () => {
-        //     canvas.width = qrSize;
-        //     canvas.height = qrSize;
-        //     ctx.drawImage(img, 0, 0, qrSize, qrSize);
-        //     URL.revokeObjectURL(url);
-
-        //     const drawTextAndFinish = () => {
-        //         const pngDataUrl = canvas.toDataURL("image/png");
-        //         triggerDownload(pngDataUrl, images[0] ? "qr-with-logo.png" : "qr-code.png");
-        //     };
-
-        //     if (images) {
-        //         const logo = new Image();
-        //         const selectedLogo = images[0];
-        //         logo.src = selectedLogo;
-
-        //         logo.onload = () => {
-        //             const logoSize = 40;
-        //             const x = (qrSize - logoSize) / 2;
-        //             const y = (qrSize - logoSize) / 2;
-        //             ctx.drawImage(logo, x, y, logoSize, logoSize);
-
-        //             drawTextAndFinish();
-        //         }
-
-        //         logo.onerror = (err) => {
-        //             console.warn("Logo failed to load, proceeding without it.", err);
-        //             drawTextAndFinish();
-        //         };
-
-        //         logo.src = images;
-        //     } else {
-        //         drawTextAndFinish();
-        //     }
-        // };
-
-        // img.onerror = (err) => {
-        //     console.error("Failed to load QR image from SVG blob", err);
-        //     URL.revokeObjectURL(url);
-        // };
-
-        // img.src = url;
     };
+
 
     function handleClick(event) {
         event.preventDefault();
