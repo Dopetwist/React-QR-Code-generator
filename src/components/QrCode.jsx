@@ -15,37 +15,35 @@ function QrCode() {
     const [ titleValue, setTitleValue ] = useState("");
     const [ bgValue, setBgValue ] = useState("");
     const [ fgValue, setFgValue ] = useState("");
-    const [ images, setImages ] = useState([]);
+    const [ base64Image, setBase64Image ] = useState(null);
     const [ checkExcavate, setExcavate ] = useState(false);
     const [ radio, setRadio ] = useState(false);
 
     const qrRef = useRef();
+
+
+    // Function to convert uploaded images to Base64
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
+    };
     
 
-    // Store uploaded image to array
-    const handleFile = (e) => {
-        const files = Array.from(e.target.files);
+    // Set base64 image to state
+    const handleFile = async (e) => {
 
-        if (files) {
-            // revoke previous if any
-            if (images) URL.revokeObjectURL(images);
+        const file = e.target.files[0];
+        if (!file) return;
 
-            const urls = files.map(file => URL.createObjectURL(file))
+        const base64 = await convertToBase64(file);
 
-            setImages(urls);
-        }
+        setBase64Image(base64);
     }
 
-    // const triggerDownload = (dataUrl, filename = "qr.png") => {
-    //     const link = document.createElement("a");
-    //     link.href = dataUrl;
-    //     link.download = filename;
-
-    //     // append -> click -> remove is most compatible
-    //     document.body.appendChild(link);
-    //     link.click();
-    //     document.body.removeChild(link);
-    // };
     
     // Toggle boolean value
     useEffect(() => {
@@ -73,6 +71,7 @@ function QrCode() {
         setFgValue(e.target.value);
     }
 
+
     // Download generated QR Code Image
     const handleDownload = async () => {
 
@@ -82,102 +81,17 @@ function QrCode() {
 
         const canvas = await html2canvas(element, {
             useCORS: true, // supports external images/logos
+            allowTaint: true,
             scale: 2 // increases image quality
         });
-
-        //  const drawTextAndFinish = () => {
-        //     const pngDataUrl = canvas.toDataURL("image/png");
-        //     triggerDownload(pngDataUrl, images[0] ? "qr-with-logo.png" : "qr-code.png");
-        // };
-
-        //     if (images) {
-        //         const logo = new Image();
-        //         const selectedLogo = images[0];
-        //         logo.src = selectedLogo;
-
-        //         logo.onload = () => {
-        //             const logoSize = 40;
-        //             const x = (qrSize - logoSize) / 2;
-        //             const y = (qrSize - logoSize) / 2;
-        //             ctx.drawImage(logo, x, y, logoSize, logoSize);
-
-        //             drawTextAndFinish();
-        //         }
-
-        //         logo.onerror = (err) => {
-        //             console.warn("Logo failed to load, proceeding without it.", err);
-        //             drawTextAndFinish();
-        //         };
-
-        //         logo.src = images;
-        //     } else {
-        //         drawTextAndFinish();
-        //     }
 
         const dataURL = canvas.toDataURL("image/png");
         const link = document.createElement("a");
         link.href = dataURL;
-        link.download = (images[0] ? "qr-with-logo.png" : "qr-code.png");
+        link.download = (base64Image[0] ? "qr-with-logo.png" : "qr-code.png");
         link.click();
-
-
-        // const svg = svgRef.current.querySelector("svg");
-
-
-        // const svgData = new XMLSerializer().serializeToString(svg);
-        // const canvas = document.createElement("canvas");
-        // const ctx = canvas.getContext("2d");
-
-        // const qrSize = 160;
-
-        // // Convert SVG to PNG
-        // const img = new Image();
-        // const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
-        // const url = URL.createObjectURL(svgBlob);
-
-        // img.onload = () => {
-        //     canvas.width = qrSize;
-        //     canvas.height = qrSize;
-        //     ctx.drawImage(img, 0, 0, qrSize, qrSize);
-        //     URL.revokeObjectURL(url);
-
-        //     const drawTextAndFinish = () => {
-        //         const pngDataUrl = canvas.toDataURL("image/png");
-        //         triggerDownload(pngDataUrl, images[0] ? "qr-with-logo.png" : "qr-code.png");
-        //     };
-
-        //     if (images) {
-        //         const logo = new Image();
-        //         const selectedLogo = images[0];
-        //         logo.src = selectedLogo;
-
-        //         logo.onload = () => {
-        //             const logoSize = 40;
-        //             const x = (qrSize - logoSize) / 2;
-        //             const y = (qrSize - logoSize) / 2;
-        //             ctx.drawImage(logo, x, y, logoSize, logoSize);
-
-        //             drawTextAndFinish();
-        //         }
-
-        //         logo.onerror = (err) => {
-        //             console.warn("Logo failed to load, proceeding without it.", err);
-        //             drawTextAndFinish();
-        //         };
-
-        //         logo.src = images;
-        //     } else {
-        //         drawTextAndFinish();
-        //     }
-        // };
-
-        // img.onerror = (err) => {
-        //     console.error("Failed to load QR image from SVG blob", err);
-        //     URL.revokeObjectURL(url);
-        // };
-
-        // img.src = url;
     };
+
 
     function handleClick(event) {
         event.preventDefault();
@@ -193,7 +107,7 @@ function QrCode() {
                     bgColor={bgValue ? bgValue : "White"}
                     fgColor={fgValue ? fgValue : "Black"}
                     imageSettings={{
-                        src: images,
+                        src: base64Image,
                         x: undefined,
                         y: undefined,
                         height: 40,
