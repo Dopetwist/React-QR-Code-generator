@@ -23,7 +23,7 @@ function QrCode() {
 
     const qrSize = 160;
 
-    const logoSize = Math.min(80, qrSize * 0.22); // adaptive size
+    const logoSize = Math.min(80, qrSize * 0.18); // adaptive size
 
 
     // Function to convert uploaded images to Base64
