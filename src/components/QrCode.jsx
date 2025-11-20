@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import html2canvas from "html2canvas";
@@ -10,6 +10,7 @@ import FgInput from "./FgInput";
 import Button from "./Button";
 
 function QrCode() {
+    
     const [ inputValue, setInputValue ] = useState("");
     const [ code, setCode ] = useState();
     const [ titleValue, setTitleValue ] = useState("");
@@ -59,21 +60,21 @@ function QrCode() {
     }, []);
 
 
-    const handleChange = useCallback((e) => {
+    const handleChange = (e) => {
         setInputValue(e.target.value);
-    }, []);
+    };
 
-    const handleTitle = useCallback((e) => {
+    const handleTitle = (e) => {
         setTitleValue(e.target.value);
-    }, []);
+    };
 
-    const handleBackground = useCallback((e) => {
+    const handleBackground = (e) => {
         setBgValue(e.target.value);
-    }, []);
+    };
 
-    const handleForeground = useCallback((e) => {
+    const handleForeground = (e) => {
         setFgValue(e.target.value);
-    }, []);
+    };
 
 
     // Download generated QR Code Image
