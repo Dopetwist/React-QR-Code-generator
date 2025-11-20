@@ -5,20 +5,38 @@
 }
 
 .container {
-    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: red;
     padding: 2rem;
 }
 
 .container form {
-    width: 60%;
-    padding: 0.5rem 1rem;
+    width: 40%;
+    padding: 2rem 1.5rem;
+    border-radius: 0.5rem;
+    background-color: green;
 }
 
 .container input {
-    width: 60%;
-    font-size: 1rem;
+    width: 100%;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
     margin-bottom: 2rem;
     padding: 0.5rem 1rem;
+    border-radius: 0.6rem;
+    border: none;
+}
+
+.container input#file-input {
+    width: 70%;
+    margin-bottom: 0.5rem;
+}
+
+section.checkbox {
+    margin-bottom: 1rem;
 }
 
 .container input#excavate,
@@ -40,12 +58,9 @@
     flex-direction: column;
 }
 
-section.checkbox {
-    margin-bottom: 2rem;
-}
-
 .btn {
     width: max-content;
+    margin-top: 1rem;
     padding: 0.2rem 0.5rem;
 }
 
@@ -73,6 +88,7 @@ section.checkbox {
 }
 
 .svg-con {
+    background-color: #fff;
     border: 0.2rem solid lightgray;
     padding: 0.5rem;
 }
