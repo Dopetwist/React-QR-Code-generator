@@ -139,6 +139,7 @@ section.checkbox label,
     background-color: #fff;
     border: 0.2rem solid lightgray;
     padding: 0.5rem;
+    margin-top: 2rem;
 }
 
 #download-btn {
@@ -154,4 +155,19 @@ section.checkbox label,
 section.logo p {
     font-size: 0.8rem;
     margin-bottom: 0.5rem;
+}
+
+#close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+
+    :hover {
+        cursor: pointer;
+    }
+}
+
+.hide {
+    display: none;
 }
