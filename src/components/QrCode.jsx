@@ -111,7 +111,7 @@ function QrCode() {
         
         setCode(<div className="svg-parent">
                 <div className="svg-con" ref={qrRef}>
-                    {titleValue && <h2 className="title"> {titleValue} </h2>}
+                    {titleValue && <h3 className="title"> {titleValue} </h3>}
 
                     <QRCodeSVG
                     size={qrSize}
