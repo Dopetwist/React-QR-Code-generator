@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
+import { X } from "lucide-react";
 import html2canvas from "html2canvas";
 import ImgFile from "./ImgFile";
 import LinkInput from "./LinkInput";
@@ -77,6 +78,12 @@ function QrCode() {
         setFgValue(e.target.value);
     };
 
+    const handleClose = () => {
+        const imageCanvas = document.querySelector(".svg-parent");
+
+        imageCanvas.classList.add("hide");
+    }
+
 
     // Download generated QR Code Image
     const handleDownload = async () => {
@@ -110,8 +117,15 @@ function QrCode() {
         setCheck(true);
         
         setCode(<div className="svg-parent">
+
+                <div id="close-btn">
+                    <X
+                    onClick={handleClose} 
+                    />
+                </div>
+
                 <div className="svg-con" ref={qrRef}>
-                    {titleValue && <h2 className="title"> {titleValue} </h2>}
+                    {titleValue && <h3 className="title"> {titleValue} </h3>}
 
                     <QRCodeSVG
                     size={qrSize}
