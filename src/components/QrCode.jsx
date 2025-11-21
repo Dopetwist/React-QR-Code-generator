@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import html2canvas from "html2canvas";
@@ -10,8 +10,10 @@ import FgInput from "./FgInput";
 import Button from "./Button";
 
 function QrCode() {
+
     const [ inputValue, setInputValue ] = useState("");
     const [ code, setCode ] = useState();
+    const [ checkCode, setCheck ] = useState(false);
     const [ titleValue, setTitleValue ] = useState("");
     const [ bgValue, setBgValue ] = useState("");
     const [ fgValue, setFgValue ] = useState("");
@@ -59,21 +61,21 @@ function QrCode() {
     }, []);
 
 
-    const handleChange = useCallback((e) => {
+    const handleChange = (e) => {
         setInputValue(e.target.value);
-    }, []);
+    };
 
-    const handleTitle = useCallback((e) => {
+    const handleTitle = (e) => {
         setTitleValue(e.target.value);
-    }, []);
+    };
 
-    const handleBackground = useCallback((e) => {
+    const handleBackground = (e) => {
         setBgValue(e.target.value);
-    }, []);
+    };
 
-    const handleForeground = useCallback((e) => {
+    const handleForeground = (e) => {
         setFgValue(e.target.value);
-    }, []);
+    };
 
 
     // Download generated QR Code Image
@@ -99,6 +101,13 @@ function QrCode() {
 
     function handleClick(event) {
         event.preventDefault();
+
+        if (inputValue.length === 0) {
+            alert("Please enter a URL or number!")
+            return;
+        }
+
+        setCheck(true);
         
         setCode(<div className="svg-parent">
                 <div className="svg-con" ref={qrRef}>
@@ -134,8 +143,8 @@ function QrCode() {
 
 
     return (
-        <div>
-            <h1> QR Code Generator </h1>
+        <div className="main-con">
+            {/* <h1> QR Code Generator </h1> */}
             <div className="container">
                 <form action="#">
                     
@@ -203,9 +212,11 @@ function QrCode() {
                         />
                 </form>
 
-                <div className="img-con">
-                    {code}
-                </div>
+                {checkCode && (
+                    <div className="img-con">
+                        {code}
+                    </div>
+                )}
             </div>
         </div>
     )
