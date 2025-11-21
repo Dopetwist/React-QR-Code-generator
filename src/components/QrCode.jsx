@@ -110,6 +110,11 @@ function QrCode() {
         setCheck(true);
         
         setCode(<div className="svg-parent">
+
+                <div id="close-btn">
+                    
+                </div>
+
                 <div className="svg-con" ref={qrRef}>
                     {titleValue && <h3 className="title"> {titleValue} </h3>}
 

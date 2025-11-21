@@ -119,9 +119,15 @@ section.checkbox label,
 }
 
 .svg-parent {
-    width: max-content;
+    width: 40%;
+    background-color: #fff;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
+    padding: 2rem;
+    border: 0.2rem solid #737373b0;
+    border-radius: 1rem;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -129,14 +135,16 @@ section.checkbox label,
 }
 
 .svg-con {
+    width: max-content;
     background-color: #fff;
     border: 0.2rem solid lightgray;
     padding: 0.5rem;
 }
 
 #download-btn {
-    margin-top: 0.5rem;
-    padding: 0.2rem 0;
+    width: max-content;
+    margin-top: 1rem;
+    padding: 0.2rem 2rem;
 }
 
 #download-btn:hover {
