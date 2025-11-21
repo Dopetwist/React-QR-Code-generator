@@ -1,14 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
-    overflow: hidden;
+    font-family: "Poppins", sans-serif;;
 }
 
 .container {
+    width: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,21 +22,21 @@ body {
     width: 30%;
     padding: 2rem 1.5rem;
     border-radius: 0.5rem;
-    background-color: green;
+    border: 0.15rem solid #ececec;
+    background-color: #fafafa;
 }
 
 .container input {
     width: 100%;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     margin-top: 0.5rem;
     margin-bottom: 2rem;
     padding: 0.5rem 1rem;
     border-radius: 0.6rem;
-    border: none;
+    border: 0.15rem solid #ececec;
 }
 
 .container input#file-input {
-    width: 70%;
     margin-bottom: 0.5rem;
 }
 
@@ -43,9 +44,14 @@ section.checkbox {
     margin-bottom: 1rem;
 }
 
-.container input#excavate,
-.container input#yes,
-.container input#no {
+section.checkbox label,
+.input-div label,
+.radioBtns input,
+.radioBtns label {
+    font-size: 0.8rem;
+}
+
+.container input#excavate {
     width: max-content;
     font-size: 1rem;
     margin-right: 0.5rem;
@@ -53,8 +59,27 @@ section.checkbox {
     padding: 0;
 }
 
+.container input#yes,
+.container input#no {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.container div.yes,
+.container div.no {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .container div.no {
     margin-left: 1rem;
+}
+
+.container div.yes label,
+.container div.no label {
+    margin-left: 0.5rem;
 }
 
 .input-div {
@@ -63,9 +88,9 @@ section.checkbox {
 }
 
 .btn {
-    width: max-content;
+    width: 100%;
     margin-top: 1rem;
-    padding: 0.2rem 0.5rem;
+    padding: 0.3rem 0;
 }
 
 .btn:hover {
@@ -104,4 +129,9 @@ section.checkbox {
 
 #download-btn:hover {
    cursor: pointer;
+}
+
+section.logo p {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
 }

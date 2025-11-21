@@ -10,9 +10,10 @@ import FgInput from "./FgInput";
 import Button from "./Button";
 
 function QrCode() {
-    
+
     const [ inputValue, setInputValue ] = useState("");
     const [ code, setCode ] = useState();
+    const [ checkCode, setCheck ] = useState(false);
     const [ titleValue, setTitleValue ] = useState("");
     const [ bgValue, setBgValue ] = useState("");
     const [ fgValue, setFgValue ] = useState("");
@@ -100,6 +101,8 @@ function QrCode() {
 
     function handleClick(event) {
         event.preventDefault();
+
+        setCheck(true);
         
         setCode(<div className="svg-parent">
                 <div className="svg-con" ref={qrRef}>
@@ -135,8 +138,8 @@ function QrCode() {
 
 
     return (
-        <div>
-            <h1> QR Code Generator </h1>
+        <div className="main-con">
+            {/* <h1> QR Code Generator </h1> */}
             <div className="container">
                 <form action="#">
                     
@@ -204,9 +207,11 @@ function QrCode() {
                         />
                 </form>
 
-                <div className="img-con">
-                    {code}
-                </div>
+                {checkCode && (
+                    <div className="img-con">
+                        {code}
+                    </div>
+                )}
             </div>
         </div>
     )
