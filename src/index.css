@@ -186,6 +186,29 @@ section.logo p {
     background-color: #8080803f;
 }
 
+#upload-btn {
+    width: 40%;
+    background-color: #5050ff;
+    color: #fff;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+    padding: 0.3rem 0.5rem;
+    border: none;
+    border-radius: 0.3rem;
+}
+
+#upload-btn:hover {
+    cursor: pointer;
+    background-color: #3232f7;
+}
+
+#upload-icon {
+    margin-right: 0.5rem;
+}
+
 .hide {
     display: none;
 }

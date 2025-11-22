@@ -49,7 +49,7 @@ function QrCode() {
         const base64 = await convertToBase64(file);
 
         setBase64Image(base64);
-    }
+    };
 
     
     // Toggle boolean value
@@ -206,6 +206,7 @@ function QrCode() {
                     {radio && <div>
                                 <ImgFile
                                 func={handleFile}
+                                confirmImage={base64Image}
                                 />
 
                                 <section className="checkbox">
