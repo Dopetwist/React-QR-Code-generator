@@ -1,12 +1,22 @@
-// import { Upload } from "lucide-react";
-
 import { Upload } from "lucide-react";
+import { useState } from "react";
 
 
 function ImgFile(props) {
 
+    const [ buttonText, setButtonText ] = useState(<> 
+                    <Upload
+                    size={18}
+                    id="upload-icon" 
+                    /> 
+                    Upload Image 
+                </>)
+                
+
     const handleUpload = (e) => {
         e.preventDefault();
+
+        setButtonText("Please wait...")
 
         const inputFile = document.getElementById("file-input");
 
@@ -20,13 +30,7 @@ function ImgFile(props) {
             id="upload-btn"
             onClick={handleUpload}
             > 
-                { props.confirmImage ? "Uploaded ✅" : <> 
-                    <Upload
-                    size={18}
-                    id="upload-icon" 
-                    /> 
-                    Upload Image 
-                </> }
+                { props.confirmImage ? "Uploaded ✅" : buttonText }
 
             </button>
 
