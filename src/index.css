@@ -147,6 +147,10 @@ section.checkbox label {
     border: 0.15rem solid lightgray;
     padding: 0.5rem;
     margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #download-btn {
