@@ -133,7 +133,7 @@ section.checkbox label {
     align-items: center;
     flex-direction: column;
     padding: 2rem;
-    border: 0.15rem solid #737373b0;
+    border: 0.15rem solid #004b4b60;
     border-radius: 1rem;
     position: absolute;
     top: 50%;
@@ -187,22 +187,22 @@ section.logo p {
 }
 
 #upload-btn {
-    width: 40%;
-    background-color: #5050ff;
-    color: #fff;
+    width: 50%;
+    background-color: #00808018;
+    color: #008080;
     font-size: 0.8rem;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 1rem 0;
     padding: 0.3rem 0.5rem;
-    border: none;
+    border: 0.05rem solid #008080;
     border-radius: 0.3rem;
 }
 
 #upload-btn:hover {
     cursor: pointer;
-    background-color: #3232f7;
+    background-color: #00808027;
 }
 
 #upload-icon {
