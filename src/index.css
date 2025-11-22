@@ -14,7 +14,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: rgb(34, 46, 46);
+    background-color: #01121b;
     padding: 2rem;
     position: relative;
 }
@@ -34,7 +34,7 @@
     margin-bottom: 2rem;
     padding: 0.5rem 1rem;
     border-radius: 0.6rem;
-    border: 0.15rem solid rgba(0, 128, 128, 0.329);
+    border: 0.1rem solid rgba(0, 128, 128, 0.329);
     outline: none;
 }
 
@@ -43,15 +43,22 @@
     margin-bottom: 0.5rem;
 }
 
+.container input#code-fg {
+    margin-bottom: 1rem;
+}
+
 section.checkbox {
     margin-bottom: 1rem;
 }
 
-section.checkbox label,
 .input-div label,
 .radioBtns input,
 .radioBtns label {
     font-size: 0.8rem;
+}
+
+section.checkbox label {
+    font-size: 0.7rem;
 }
 
 .container input#excavate {
@@ -91,18 +98,18 @@ section.checkbox label,
 }
 
 .btn {
-    background: linear-gradient(300deg, purple, blue);
+    background: linear-gradient(300deg, teal, blue);
     width: 100%;
     color: #fff;
-    margin-top: 1rem;
-    padding: 0.4rem 0;
+    margin-top: 2rem;
+    padding: 0.5rem 0;
     border: none;
     border-radius: 0.5rem;
 }
 
 .btn:hover {
     cursor: pointer;
-    background: linear-gradient(300deg, blue, purple);
+    background: linear-gradient(300deg, blue, teal);
 }
 
 .img-con {
@@ -126,7 +133,7 @@ section.checkbox label,
     align-items: center;
     flex-direction: column;
     padding: 2rem;
-    border: 0.2rem solid #737373b0;
+    border: 0.15rem solid #004b4b60;
     border-radius: 1rem;
     position: absolute;
     top: 50%;
@@ -137,23 +144,28 @@ section.checkbox label,
 .svg-con {
     width: max-content;
     background-color: #fff;
-    border: 0.2rem solid lightgray;
+    border: 0.15rem solid lightgray;
     padding: 0.5rem;
     margin-top: 2rem;
 }
 
 #download-btn {
+    background-color: blue;
+    color: #fff;
     width: max-content;
     margin-top: 1rem;
-    padding: 0.2rem 2rem;
+    padding: 0.3rem 2rem;
+    border: none;
+    border-radius: 0.3rem;
 }
 
 #download-btn:hover {
    cursor: pointer;
+   background-color: #0404b6;
 }
 
 section.logo p {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     margin-bottom: 0.5rem;
 }
 
@@ -162,10 +174,39 @@ section.logo p {
     top: 0;
     right: 0;
     margin: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3rem;
+    border-radius: 50%;
+}
 
-    :hover {
-        cursor: pointer;
-    }
+#close-btn:hover {
+    cursor: pointer;
+    background-color: #8080803f;
+}
+
+#upload-btn {
+    width: 50%;
+    background-color: #00808018;
+    color: #008080;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+    padding: 0.3rem 0.5rem;
+    border: 0.05rem solid #008080;
+    border-radius: 0.3rem;
+}
+
+#upload-btn:hover {
+    cursor: pointer;
+    background-color: #00808027;
+}
+
+#upload-icon {
+    margin-right: 0.5rem;
 }
 
 .hide {
