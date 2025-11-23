@@ -82,6 +82,8 @@ function QrCode() {
         const imageCanvas = document.querySelector(".svg-parent");
 
         imageCanvas.classList.add("hide");
+
+        document.querySelector(".overlay").classList.remove("darken");
     }
 
 
@@ -109,7 +111,7 @@ function QrCode() {
     function handleClick(event) {
         event.preventDefault();
 
-        // document.querySelector(".overlay").classList.add("blur");
+        document.querySelector(".overlay").classList.add("darken");
 
         if (inputValue.length === 0) {
             alert("Please enter a URL or number!")

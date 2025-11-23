@@ -139,6 +139,7 @@ section.checkbox label {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 100;
 }
 
 .svg-con {
@@ -224,11 +225,12 @@ section.logo p {
     display: none;
 }
 
-.overlay {
-    background-color: red;
-    /* min-height: 100vh; */
-}
-
-.blur {
-    filter: blur(1rem);
+.overlay.darken {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 99;
 }
