@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { X } from "lucide-react";
+import { X, Download } from "lucide-react";
 import html2canvas from "html2canvas";
 import ImgFile from "./ImgFile";
 import LinkInput from "./LinkInput";
@@ -109,6 +109,8 @@ function QrCode() {
     function handleClick(event) {
         event.preventDefault();
 
+        // document.querySelector(".overlay").classList.add("blur");
+
         if (inputValue.length === 0) {
             alert("Please enter a URL or number!")
             return;
@@ -149,6 +151,11 @@ function QrCode() {
                 onClick={handleDownload}
                 id="download-btn"
                 > 
+                    <Download
+                    id="download-icon"
+                    size={17} 
+                    />
+
                     Download 
                 </button>
             </div>
@@ -159,8 +166,9 @@ function QrCode() {
     return (
         <div className="main-con">
             {/* <h1> QR Code Generator </h1> */}
+            <div className="overlay"></div>
             <div className="container">
-                <form action="#">
+                <form action="#" id="main-form">
                     
                     <LinkInput
                     changeFunc={handleChange}

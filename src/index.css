@@ -154,9 +154,12 @@ section.checkbox label {
 }
 
 #download-btn {
+    width: max-content;
     background-color: blue;
     color: #fff;
-    width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 1rem;
     padding: 0.3rem 2rem;
     border: none;
@@ -166,6 +169,10 @@ section.checkbox label {
 #download-btn:hover {
    cursor: pointer;
    background-color: #0404b6;
+}
+
+#download-icon {
+    margin-right: 0.5rem;
 }
 
 section.logo p {
@@ -215,4 +222,13 @@ section.logo p {
 
 .hide {
     display: none;
+}
+
+.overlay {
+    background-color: red;
+    /* min-height: 100vh; */
+}
+
+.blur {
+    filter: blur(1rem);
 }
