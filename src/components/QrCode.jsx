@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { X } from "lucide-react";
+import { X, Download } from "lucide-react";
 import html2canvas from "html2canvas";
 import ImgFile from "./ImgFile";
 import LinkInput from "./LinkInput";
@@ -149,6 +149,11 @@ function QrCode() {
                 onClick={handleDownload}
                 id="download-btn"
                 > 
+                    <Download
+                    id="download-icon"
+                    size={17} 
+                    />
+
                     Download 
                 </button>
             </div>

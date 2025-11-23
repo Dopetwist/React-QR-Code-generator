@@ -1,5 +1,5 @@
-import { Upload } from "lucide-react";
 import { useState } from "react";
+import { Upload } from "lucide-react";
 
 
 function ImgFile(props) {
@@ -34,7 +34,7 @@ function ImgFile(props) {
 
             </button>
 
-            <input type="file" id="file-input" className="hide" accept="image/*" onChange={props.func} multiple />
+            <input type="file" id="file-input" className="hide" accept="image/*" onChange={props.func} />
 
         </div>
     )
