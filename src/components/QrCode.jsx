@@ -109,6 +109,8 @@ function QrCode() {
     function handleClick(event) {
         event.preventDefault();
 
+        // document.querySelector(".overlay").classList.add("blur");
+
         if (inputValue.length === 0) {
             alert("Please enter a URL or number!")
             return;
@@ -164,8 +166,9 @@ function QrCode() {
     return (
         <div className="main-con">
             {/* <h1> QR Code Generator </h1> */}
+            <div className="overlay"></div>
             <div className="container">
-                <form action="#">
+                <form action="#" id="main-form">
                     
                     <LinkInput
                     changeFunc={handleChange}
