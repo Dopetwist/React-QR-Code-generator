@@ -81,8 +81,13 @@ function QrCode() {
 
     const handleClose = () => {
         setHidden(true);
-
-        setDark(false)
+        setDark(false);
+        setInputValue("");
+        setTitleValue("");
+        setBgValue("");
+        setFgValue("");
+        setBase64Image(null);
+        setExcavate(false);
     }
 
 
@@ -194,7 +199,6 @@ function QrCode() {
 
 
                 {!hidden && (
-                    <div className="img-con">
                         <div className="svg-parent">
 
                             <div id="close-btn">
@@ -236,7 +240,6 @@ function QrCode() {
                                 Download 
                             </button>
                         </div>
-                    </div>
                 )}
             </div>
         </div>
