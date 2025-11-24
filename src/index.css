@@ -7,6 +7,20 @@
     font-family: "Poppins", sans-serif;;
 }
 
+body {
+    background-color: #01121b;
+}
+
+#header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #fff;
+    padding: 0.3rem 4%;
+    margin-bottom: 1rem;
+}
+
 .container {
     width: 100%;
     min-height: 100vh;
@@ -14,7 +28,6 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #01121b;
     padding: 2rem;
     position: relative;
 }
