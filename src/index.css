@@ -13,12 +13,8 @@ body {
 
 #header {
     width: 100%;
-    /* position: fixed;
-    top: 0;
-    left: 0; */
     color: #fff;
     padding: 1rem 4%;
-    /* margin-bottom: 1rem; */
 }
 
 .container {
