@@ -13,14 +13,14 @@ import Button from "./Button";
 function QrCode() {
 
     const [ inputValue, setInputValue ] = useState("");
-    const [ code, setCode ] = useState();
-    const [ checkCode, setCheck ] = useState(false);
     const [ titleValue, setTitleValue ] = useState("");
     const [ bgValue, setBgValue ] = useState("");
     const [ fgValue, setFgValue ] = useState("");
     const [ base64Image, setBase64Image ] = useState(null);
     const [ checkExcavate, setExcavate ] = useState(false);
     const [ radio, setRadio ] = useState(false);
+    const [ hidden, setHidden ] = useState(true);
+    const [ dark, setDark ] = useState(false);
 
     const qrRef = useRef();
 
@@ -28,7 +28,6 @@ function QrCode() {
 
     const logoSize = Math.min(80, qrSize * 0.18); // adaptive size
 
-    const imageCanvas = document.querySelector(".svg-parent");
 
 
     // Function to convert uploaded images to Base64
@@ -81,9 +80,14 @@ function QrCode() {
     };
 
     const handleClose = () => {
-        imageCanvas.classList.add("hide");
-
-        document.querySelector(".overlay").classList.remove("darken");
+        setHidden(true);
+        setDark(false);
+        setInputValue("");
+        setTitleValue("");
+        setBgValue("");
+        setFgValue("");
+        setBase64Image(null);
+        setExcavate(false);
     }
 
 
@@ -111,63 +115,20 @@ function QrCode() {
     function handleClick(event) {
         event.preventDefault();
 
-        document.querySelector(".overlay").classList.add("darken");
-
         if (inputValue.length === 0) {
             alert("Please enter a URL or number!")
             return;
         }
 
-        setCheck(true);
+        setDark(true);
         
-        setCode(<div className="svg-parent">
-
-                <div id="close-btn">
-                    <X
-                    onClick={handleClose} 
-                    />
-                </div>
-
-                <div className="svg-con" ref={qrRef}>
-                    {titleValue && <h3 className="title"> {titleValue} </h3>}
-
-                    <QRCodeSVG
-                    size={qrSize}
-                    value={inputValue}
-                    title={titleValue}
-                    bgColor={bgValue ? bgValue : "White"}
-                    fgColor={fgValue ? fgValue : "Black"}
-                    imageSettings={{
-                        src: base64Image,
-                        x: undefined,
-                        y: undefined,
-                        height: logoSize,
-                        width: logoSize,
-                        opacity: 1,
-                        excavate: !checkExcavate
-                    }}
-                    />
-                </div>
-
-                <button 
-                onClick={handleDownload}
-                id="download-btn"
-                > 
-                    <Download
-                    id="download-icon"
-                    size={17} 
-                    />
-
-                    Download 
-                </button>
-            </div>
-        );
+        setHidden(false);
     }
 
 
     return (
         <div className="main-con">
-            <div className="overlay"></div>
+            <div className={`overlay ${dark ? "darken" : ""}`}></div>
             <div className="container">
                 <form action="#" id="main-form">
                     
@@ -236,10 +197,49 @@ function QrCode() {
                         />
                 </form>
 
-                {checkCode && (
-                    <div className="img-con">
-                        {code}
-                    </div>
+
+                {!hidden && (
+                        <div className="svg-parent">
+
+                            <div id="close-btn">
+                                <X
+                                onClick={handleClose} 
+                                />
+                            </div>
+
+                            <div className="svg-con" ref={qrRef}>
+                                {titleValue && <h3 className="title"> {titleValue} </h3>}
+
+                                <QRCodeSVG
+                                size={qrSize}
+                                value={inputValue}
+                                title={titleValue}
+                                bgColor={bgValue ? bgValue : "White"}
+                                fgColor={fgValue ? fgValue : "Black"}
+                                imageSettings={{
+                                    src: base64Image,
+                                    x: undefined,
+                                    y: undefined,
+                                    height: logoSize,
+                                    width: logoSize,
+                                    opacity: 1,
+                                    excavate: !checkExcavate
+                                }}
+                                />
+                            </div>
+
+                            <button 
+                            onClick={handleDownload}
+                            id="download-btn"
+                            > 
+                                <Download
+                                id="download-icon"
+                                size={17} 
+                                />
+
+                                Download 
+                            </button>
+                        </div>
                 )}
             </div>
         </div>
