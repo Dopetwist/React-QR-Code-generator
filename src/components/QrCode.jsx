@@ -28,7 +28,6 @@ function QrCode() {
 
     const logoSize = Math.min(80, qrSize * 0.18); // adaptive size
 
-    const imageCanvas = document.querySelector(".svg-parent");
 
 
     // Function to convert uploaded images to Base64
@@ -81,6 +80,8 @@ function QrCode() {
     };
 
     const handleClose = () => {
+        const imageCanvas = document.querySelector(".svg-parent");
+
         imageCanvas.classList.add("hide");
 
         document.querySelector(".overlay").classList.remove("darken");
@@ -162,6 +163,8 @@ function QrCode() {
                 </button>
             </div>
         );
+
+       document.querySelector(".svg-parent").classList.remove("hide");
     }
 
 
