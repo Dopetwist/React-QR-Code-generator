@@ -47,6 +47,10 @@
     margin-bottom: 1rem;
 }
 
+.container h1 {
+    color: #fff;
+}
+
 section.checkbox {
     margin-bottom: 1rem;
 }

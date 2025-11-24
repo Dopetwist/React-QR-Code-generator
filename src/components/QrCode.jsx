@@ -167,7 +167,6 @@ function QrCode() {
 
     return (
         <div className="main-con">
-            {/* <h1> QR Code Generator </h1> */}
             <div className="overlay"></div>
             <div className="container">
                 <form action="#" id="main-form">
