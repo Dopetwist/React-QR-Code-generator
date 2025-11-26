@@ -87,7 +87,8 @@ function QrCode() {
         setBgValue("");
         setFgValue("");
         setBase64Image(null);
-        setExcavate(false);
+        setExcavate(true);
+        setRadio(false);
     }
 
 
