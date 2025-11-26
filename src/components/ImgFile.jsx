@@ -1,16 +1,36 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Upload } from "lucide-react";
 
 
 function ImgFile(props) {
+    const fileInputRef = useRef(null);
+    const [ btnText, setBtnText ] = useState(<> 
+                    <Upload
+                    size={18}
+                    id="upload-icon" 
+                    /> 
+                    Upload Image 
+                </>);
                 
 
     const handleUpload = (e) => {
         e.preventDefault();
+        setBtnText("Please wait...")
+        fileInputRef.current.click();
 
-        const inputFile = document.getElementById("file-input");
+        // Reset button text on file-picker dialog cancel
+        const resetOnFocus = () => {
+            setBtnText(<> 
+                    <Upload
+                    size={18}
+                    id="upload-icon" 
+                    /> 
+                    Upload Image 
+                </>);
+            window.removeEventListener("focus", resetOnFocus);
+        };
 
-        inputFile.click();
+        window.addEventListener("focus", resetOnFocus);
     }
 
 
@@ -20,17 +40,18 @@ function ImgFile(props) {
             id="upload-btn"
             onClick={handleUpload}
             > 
-                { props.confirmImage ? "Uploaded ✅" : <> 
-                    <Upload
-                    size={18}
-                    id="upload-icon" 
-                    /> 
-                    Upload Image 
-                </> }
+                { props.confirmImage ? "Uploaded ✅" : btnText }
 
             </button>
 
-            <input type="file" id="file-input" className="hide" accept="image/*" onChange={props.func} />
+            <input 
+            type="file" 
+            id="file-input" 
+            className="hide" 
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={props.func} 
+            />
 
         </div>
     )
