@@ -47,10 +47,10 @@ function ImgFile(props) {
             <input 
             type="file" 
             id="file-input" 
-            className="hide" 
             accept="image/*"
             ref={fileInputRef}
-            onChange={props.func} 
+            onChange={props.func}
+            hidden
             />
 
         </div>

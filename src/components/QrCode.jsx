@@ -89,6 +89,8 @@ function QrCode() {
         setBase64Image(null);
         setExcavate(true);
         setRadio(false);
+
+        document.body.style.overflow = "auto";
     }
 
 
@@ -124,6 +126,8 @@ function QrCode() {
         setDark(true);
         
         setHidden(false);
+
+        document.body.style.overflow = "hidden";
     }
 
 
