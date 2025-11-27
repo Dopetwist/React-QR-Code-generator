@@ -24,7 +24,7 @@ function QrCode() {
 
     const qrRef = useRef();
 
-    const qrSize = 160;
+    const qrSize = 128;
 
     const logoSize = Math.min(80, qrSize * 0.18); // adaptive size
 

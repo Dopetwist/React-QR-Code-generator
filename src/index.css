@@ -193,6 +193,19 @@ section.logo p {
     margin-bottom: 0.5rem;
 }
 
+#scan-btn {
+    background-color: #008080;
+    color: #fff;
+    padding: 0.3rem 0.7rem;
+    border-radius: 0.3rem;
+    border: none;
+}
+
+#scan-btn:hover {
+    cursor: pointer;
+    background-color: #015f5f;
+}
+
 #close-btn {
     position: fixed;
     top: 0;
@@ -233,7 +246,7 @@ section.logo p {
     margin-right: 0.5rem;
 }
 
-#scan-con {
+.qr-scan {
     width: max-content;
 }
 
@@ -281,7 +294,7 @@ section.logo p {
         flex-direction: column;
     }
 
-    #scan-con {
+    .qr-scan {
         margin-top: 2rem;
     }
 
@@ -306,7 +319,7 @@ section.logo p {
         flex-direction: column;
     }
 
-    #scan-con {
+    .qr-scan {
         margin-top: 2rem;
     }
 
@@ -334,7 +347,7 @@ section.logo p {
         width: 70%;
     }
 
-    #scan-con {
+    .qr-scan {
         margin-top: 2rem;
     }
 
