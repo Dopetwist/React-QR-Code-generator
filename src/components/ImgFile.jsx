@@ -4,6 +4,7 @@ import { Upload } from "lucide-react";
 
 function ImgFile(props) {
     const fileInputRef = useRef(null);
+    const { confirmImage, func } = props;
     const [ btnText, setBtnText ] = useState(<> 
                     <Upload
                     size={18}
@@ -20,13 +21,12 @@ function ImgFile(props) {
 
         // Reset button text on file-picker dialog cancel
         const resetOnFocus = () => {
-            setBtnText(<> 
-                    <Upload
-                    size={18}
-                    id="upload-icon" 
-                    /> 
+            setBtnText(
+                <> 
+                    <Upload size={18} id="upload-icon" /> 
                     Upload Image 
-                </>);
+                </>
+            );
             window.removeEventListener("focus", resetOnFocus);
         };
 
@@ -40,7 +40,7 @@ function ImgFile(props) {
             id="upload-btn"
             onClick={handleUpload}
             > 
-                { props.confirmImage ? "Uploaded ✅" : btnText }
+                { confirmImage ? "Uploaded ✅" : btnText }
 
             </button>
 
@@ -49,7 +49,7 @@ function ImgFile(props) {
             id="file-input" 
             accept="image/*"
             ref={fileInputRef}
-            onChange={props.func}
+            onChange={func}
             hidden
             />
 
