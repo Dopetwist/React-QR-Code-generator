@@ -15,6 +15,9 @@ body {
     width: 100%;
     color: #fff;
     padding: 1rem 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .container {
@@ -190,6 +193,19 @@ section.logo p {
     margin-bottom: 0.5rem;
 }
 
+#scan-btn {
+    background-color: #008080;
+    color: #fff;
+    padding: 0.3rem 0.7rem;
+    border-radius: 0.3rem;
+    border: none;
+}
+
+#scan-btn:hover {
+    cursor: pointer;
+    background-color: #015f5f;
+}
+
 #close-btn {
     position: fixed;
     top: 0;
@@ -228,6 +244,10 @@ section.logo p {
 
 #upload-icon {
     margin-right: 0.5rem;
+}
+
+.qr-scan {
+    width: max-content;
 }
 
 .overlay.darken {
@@ -273,6 +293,17 @@ section.logo p {
         align-items: center;
         flex-direction: column;
     }
+
+    .qr-scan {
+        margin-top: 2rem;
+    }
+
+    .header-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
 }
 
 @media (min-width: 480px) and (max-width: 679px) {
@@ -282,6 +313,17 @@ section.logo p {
     }
 
     #header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .qr-scan {
+        margin-top: 2rem;
+    }
+
+    .header-logo {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -303,6 +345,17 @@ section.logo p {
 
     .svg-parent {
         width: 70%;
+    }
+
+    .qr-scan {
+        margin-top: 2rem;
+    }
+
+    .header-logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 }
 

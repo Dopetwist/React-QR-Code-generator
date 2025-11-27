@@ -18,13 +18,13 @@ function QrCode() {
     const [ fgValue, setFgValue ] = useState("");
     const [ base64Image, setBase64Image ] = useState(null);
     const [ checkExcavate, setExcavate ] = useState(false);
-    const [ radio, setRadio ] = useState(false);
+    const [ radio, setRadio ] = useState("");
     const [ hidden, setHidden ] = useState(true);
     const [ dark, setDark ] = useState(false);
 
     const qrRef = useRef();
 
-    const qrSize = 160;
+    const qrSize = 128;
 
     const logoSize = Math.min(80, qrSize * 0.18); // adaptive size
 
@@ -88,7 +88,7 @@ function QrCode() {
         setFgValue("");
         setBase64Image(null);
         setExcavate(true);
-        setRadio(false);
+        setRadio("");
 
         document.body.style.overflow = "auto";
     }
@@ -163,22 +163,34 @@ function QrCode() {
                         <p> Insert Image on QR Code? </p>
 
                         <div className="radioBtns">
-                            <div className="yes"
-                            onClick={() => {setRadio(true)}}>
-                                <input type="radio" id="yes" name="logo" value="yes" />
+                            <div className="yes">
+                                <input
+                                type="radio" 
+                                id="yes" 
+                                name="logo" 
+                                value="yes"
+                                checked={radio === "yes"}
+                                onChange={() => {setRadio("yes")}}
+                                />
                                 <label htmlFor="yes">Yes</label>
                             </div>
 
-                            <div className="no"
-                            onClick={() => {setRadio(false)}}>
-                                <input type="radio" id="no" name="logo" value="no" />
+                            <div className="no">
+                                <input 
+                                type="radio" 
+                                id="no" 
+                                name="logo" 
+                                value="no"
+                                checked={radio === "no"}
+                                onChange={() => {setRadio("no")}}
+                                />
                                 <label htmlFor="no">No</label>
                             </div>
                         </div>
                     </section>
 
                     
-                    {radio && <div>
+                    {radio === "yes" && <div>
                                 <ImgFile
                                 func={handleFile}
                                 confirmImage={base64Image}
