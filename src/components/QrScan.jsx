@@ -52,7 +52,9 @@ function QrScan() {
       </div>
 
       {/* open button */}
-      <button onClick={startScanner} id="scan-btn">Scan QR Code</button>
+      <button onClick={startScanner} id="scan-btn">
+        <div className="camera">📷</div> Scan QR Code
+        </button>
     </>
   );
 }

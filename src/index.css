@@ -196,6 +196,9 @@ section.logo p {
 #scan-btn {
     background-color: #008080;
     color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 0.3rem 0.7rem;
     border-radius: 0.3rem;
     border: none;
@@ -243,6 +246,12 @@ section.logo p {
 }
 
 #upload-icon {
+    margin-right: 0.5rem;
+}
+
+.camera {
+    width: max-content;
+    font-size: 1.1rem;
     margin-right: 0.5rem;
 }
 
