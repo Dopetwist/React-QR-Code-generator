@@ -2,36 +2,53 @@ import { Html5Qrcode } from "html5-qrcode";
 import { useState } from "react";
 
 function QrScan() {
-    const [scanner, setScanner] = useState(null);
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const [scannerInstance, setScannerInstance] = useState(null);
 
-    const startScan = () => {
-        const html5QrCode = new Html5Qrcode("reader");
-        setScanner(html5QrCode);
+  const startScanner = async () => {
+    setIsScannerOpen(true);
 
-        html5QrCode.start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: { width: 250, height: 250 } },
-        (decodedText) => {
-            console.log("Scanned:", decodedText);
-            html5QrCode.stop();
-            document.getElementById("reader").style.display = "none";
-        }
-        );
+    const html5QrCode = new Html5Qrcode("reader");
+    setScannerInstance(html5QrCode);
 
-        document.getElementById("reader").style.display = "block";
-    };
+    html5QrCode.start(
+      { facingMode: "environment" },
+      { fps: 10, qrbox: { width: 250, height: 250 } },
+      (decodedText) => {
+        console.log("Scanned:", decodedText);
 
-    return (
-        <div id="scan-con">
-            <button 
-            onClick={startScan}
-            id="scan-btn"
-            >
-                Scan QR Code
-            </button>
-            <div id="reader" style={{ width: "300px", display: "none" }}></div>
-        </div>
+        stopScanner();
+
+        // 👉 Use scanned value here
+        // setInputValue(decodedText);
+      },
+      (errorMessage) => {}
     );
+  };
+
+  const stopScanner = () => {
+    if (scannerInstance) {
+      scannerInstance.stop().then(() => {
+        setIsScannerOpen(false);
+      });
+    }
+  };
+
+  return (
+    <>
+      {/* overlay */}
+      <div className={`scanner-overlay ${isScannerOpen ? "show" : ""}`}></div>
+
+      {/* scanner modal */}
+      <div className={`scanner-container ${isScannerOpen ? "show" : ""}`}>
+        <div id="reader"></div>
+        <button onClick={stopScanner} className="scanner-close-btn">Close</button>
+      </div>
+
+      {/* open button */}
+      <button onClick={startScanner} id="scan-btn">Scan QR Code</button>
+    </>
+  );
 }
 
 export default QrScan;
