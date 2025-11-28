@@ -1,5 +1,6 @@
-import { Html5Qrcode } from "html5-qrcode";
 import { useState } from "react";
+import { Html5Qrcode } from "html5-qrcode";
+
 
 function QrScan() {
   const [isScannerOpen, setIsScannerOpen] = useState(false);
@@ -19,16 +20,21 @@ function QrScan() {
 
         stopScanner();
 
-        // 👉 Use scanned value here
-        // setInputValue(decodedText);
-      },
-      (errorMessage) => {}
+        let url = decodedText;
+
+        if (!url.startsWith("http")) {
+            url = "https://" + url;
+        }
+
+        window.open(url, "_blank");
+
+      }
     );
   };
 
   const stopScanner = () => {
     if (scannerInstance) {
-      scannerInstance.stop().then(() => {
+        scannerInstance.stop().then(() => {
         setIsScannerOpen(false);
       });
     }
