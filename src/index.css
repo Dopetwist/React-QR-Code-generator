@@ -20,6 +20,10 @@ body {
     align-items: center;
 }
 
+.header-logo p {
+    color: #737373;
+}
+
 .container {
     width: 100%;
     height: max-content;
@@ -399,7 +403,7 @@ section.logo p {
     .container {
         padding: 1rem;
     }
-    
+
     .container form,
     .svg-parent {
         width: 70%;
