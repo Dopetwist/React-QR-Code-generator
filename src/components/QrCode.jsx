@@ -135,6 +135,7 @@ function QrCode() {
         <div className="main-con">
             <div className={`overlay ${dark ? "darken" : ""}`}></div>
             <div className="container">
+                <p className="form-text">Fill the form to generate a QR code</p>
                 <form action="#" id="main-form">
                     
                     <LinkInput
