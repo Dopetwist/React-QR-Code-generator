@@ -281,6 +281,10 @@ section.logo p {
 
 .scanner-container {
     width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -365,6 +369,10 @@ section.logo p {
         align-items: center;
         flex-direction: column;
     }
+
+    .scanner-container {
+        width: 70%;
+    }
 }
 
 @media (min-width: 480px) and (max-width: 679px) {
@@ -389,6 +397,10 @@ section.logo p {
         justify-content: center;
         align-items: center;
         flex-direction: column;
+    }
+
+    .scanner-container {
+        width: 60%;
     }
 }
 
@@ -418,6 +430,10 @@ section.logo p {
         align-items: center;
         flex-direction: column;
     }
+
+    .scanner-container {
+        width: 40%;
+    }
 }
 
 @media (min-width: 800px) and (max-width: 1023px) {
@@ -427,6 +443,10 @@ section.logo p {
 
     .svg-parent {
         width: 60%;
+    }
+
+    .scanner-container {
+        width: 40%;
     }
 }
 
