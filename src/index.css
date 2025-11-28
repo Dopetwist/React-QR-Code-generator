@@ -20,6 +20,10 @@ body {
     align-items: center;
 }
 
+.header-logo p {
+    color: #737373;
+}
+
 .container {
     width: 100%;
     height: max-content;
@@ -111,6 +115,13 @@ section.checkbox label {
 .input-div {
     display: flex;
     flex-direction: column;
+}
+
+.form-text {
+    font-family: Verdana, sans-serif;
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 1rem;
 }
 
 .btn {
@@ -349,6 +360,10 @@ section.logo p {
 /* BREAKPOINTS */
 
 @media (max-width: 479px) {
+    .container {
+        padding: 1rem;
+    }
+
     .container form {
         width: 90%;
     }
@@ -385,6 +400,10 @@ section.logo p {
 }
 
 @media (min-width: 480px) and (max-width: 679px) {
+    .container {
+        padding: 1rem;
+    }
+
     .container form,
     .svg-parent {
         width: 70%;

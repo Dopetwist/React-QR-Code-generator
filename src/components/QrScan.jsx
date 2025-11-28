@@ -1,25 +1,32 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 
 
 function QrScan() {
   const [isScannerOpen, setIsScannerOpen] = useState(false);
-  const [scannerInstance, setScannerInstance] = useState(null);
+  const scannerRef = useRef(null);
+  const lockRef = useRef(false); // prevents multi-scans
 
   const startScanner = async () => {
     setIsScannerOpen(true);
 
     const html5QrCode = new Html5Qrcode("reader");
-    setScannerInstance(html5QrCode);
+    scannerRef.current = html5QrCode;
+
+    lockRef.current = false; // reset lock
 
     html5QrCode.start(
       { facingMode: "environment" },
       { fps: 10, qrbox: { width: 250, height: 250 } },
       (decodedText) => {
+        if (lockRef.current) return;  // prevent multiple triggers
+        lockRef.current = true;
+
         console.log("Scanned:", decodedText);
 
         stopScanner();
 
+        // Open url in a new browser tab
         let url = decodedText;
 
         if (!url.startsWith("http")) {
@@ -32,12 +39,17 @@ function QrScan() {
     );
   };
 
-  const stopScanner = () => {
-    if (scannerInstance) {
-        scannerInstance.stop().then(() => {
+  const stopScanner = async () => {
+      if (scannerRef.current) {
+        try {
+          await scannerRef.current.stop();
+          scannerRef.current.clear(); // <-- important cleanup
+        } catch (err) {
+          console.error("Stop failed:", err);
+        }
+
         setIsScannerOpen(false);
-      });
-    }
+      }
   };
 
   return (
