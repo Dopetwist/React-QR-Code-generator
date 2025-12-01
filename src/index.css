@@ -125,7 +125,7 @@ section.checkbox label {
 }
 
 .btn {
-    background: linear-gradient(300deg, teal, blue);
+    background: linear-gradient(300deg, #008080, #0000ff);
     width: 100%;
     color: #fff;
     margin-top: 2rem;
@@ -136,7 +136,7 @@ section.checkbox label {
 
 .btn:hover {
     cursor: pointer;
-    background: linear-gradient(300deg, blue, teal);
+    background: linear-gradient(300deg, #0000ff, #008080);
 }
 
 .title {
@@ -168,7 +168,7 @@ section.checkbox label {
 .svg-con {
     width: max-content;
     background-color: #fff;
-    border: 0.15rem solid lightgray;
+    border: 0.15rem solid #d3d3d3;
     padding: 0.5rem;
     margin-top: 2rem;
     display: flex;
@@ -179,7 +179,7 @@ section.checkbox label {
 
 #download-btn {
     width: max-content;
-    background-color: blue;
+    background-color: #0000ff;
     color: #fff;
     display: flex;
     justify-content: center;
@@ -328,7 +328,7 @@ section.logo p {
 .scanner-close-btn {
     margin-top: 1rem;
     width: 100%;
-    background: crimson;
+    background: #dc143c;
     color: #fff;
     padding: 0.5rem;
     border-radius: 0.5rem;
