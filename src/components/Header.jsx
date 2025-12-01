@@ -5,7 +5,7 @@ function Header() {
         <div id="header">
             <div className="header-logo">
                 <h1> KwikScan </h1>
-                <p> Encode and scan easily </p>
+                <p> Generate smart. Scan smarter. </p>
             </div>
 
             <div className="qr-scan">

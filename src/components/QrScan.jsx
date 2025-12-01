@@ -22,8 +22,6 @@ function QrScan() {
         if (lockRef.current) return;  // prevent multiple triggers
         lockRef.current = true;
 
-        console.log("Scanned:", decodedText);
-
         stopScanner();
 
         // Open url in a new browser tab
@@ -66,7 +64,7 @@ function QrScan() {
       {/* open button */}
       <button onClick={startScanner} id="scan-btn">
         <div className="camera">📷</div> Scan QR Code
-        </button>
+      </button>
     </>
   );
 }
