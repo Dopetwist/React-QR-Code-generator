@@ -104,7 +104,7 @@ function QrCode() {
         const canvas = await html2canvas(element, {
             useCORS: true, // supports external images/logos
             allowTaint: true,
-            scale: 2 // increases image quality
+            scale: 10 // increases image quality
         });
 
         const dataURL = canvas.toDataURL("image/png");
@@ -226,7 +226,7 @@ function QrCode() {
                             </div>
 
                             <div className="svg-con" ref={qrRef}>
-                                {titleValue && <h3 className="title"> {titleValue} </h3>}
+                                {titleValue && <h5 className="title"> {titleValue} </h5>}
 
                                 <QRCodeSVG
                                 size={qrSize}
