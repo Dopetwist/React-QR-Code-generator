@@ -118,6 +118,7 @@ function QrCode() {
     function handleClick(event) {
         event.preventDefault();
 
+        // alert message if URL field is empty
         if (inputValue.length === 0) {
             alert("Please enter a URL or number!")
             return;
