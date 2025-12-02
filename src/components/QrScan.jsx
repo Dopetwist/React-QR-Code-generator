@@ -6,6 +6,8 @@ function QrScan() {
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const scannerRef = useRef(null);
   const lockRef = useRef(false); // prevents multi-scans
+  const [flash, setFlash] = useState(false);
+
 
   const startScanner = async () => {
     setIsScannerOpen(true);
@@ -17,10 +19,29 @@ function QrScan() {
 
     html5QrCode.start(
       { facingMode: "environment" },
-      { fps: 10, qrbox: { width: 250, height: 250 } },
+      { 
+        fps: 10, 
+        qrbox: (viewportWidth, viewportHeight) => {
+          // Extra large detection box
+          const minEdge = Math.min(viewportWidth, viewportHeight);
+          return {
+            width: minEdge - 60,
+            height: minEdge - 60
+          }
+        }
+      },
       (decodedText) => {
         if (lockRef.current) return;  // prevent multiple triggers
         lockRef.current = true;
+
+        // Trigger green flash
+        setFlash(true);
+        setTimeout(() => setFlash(false), 250); // flash duration
+
+        // Trigger vibration
+        if (navigator.vibrate) {
+          navigator.vibrate(200); // vibrate for 200ms
+        }
 
         stopScanner();
 
@@ -56,6 +77,8 @@ function QrScan() {
 
   return (
     <>
+      {flash && <div className="scan-flash show"></div>}
+
       {/* overlay */}
       <div className={`scanner-overlay ${isScannerOpen ? "show" : ""}`}></div>
 
