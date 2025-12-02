@@ -19,14 +19,7 @@ function QrScan() {
       { facingMode: "environment" },
       { 
         fps: 10, 
-        qrbox: (viewportWidth, viewportHeight) => {
-          // Extra large detection box
-          const minEdge = Math.min(viewportWidth, viewportHeight);
-          return {
-            width: minEdge - 60,
-            height: minEdge - 60
-          }
-        }
+        qrbox: { width: 320, height: 320 }
       },
       (decodedText) => {
         if (lockRef.current) return;  // prevent multiple triggers
