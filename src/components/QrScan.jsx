@@ -35,6 +35,8 @@ function QrScan() {
 
       }
     );
+
+    document.body.style.overflow = "hidden";
   };
 
   const stopScanner = async () => {
@@ -48,6 +50,8 @@ function QrScan() {
 
         setIsScannerOpen(false);
       }
+
+      document.body.style.overflow = "auto";
   };
 
   return (
