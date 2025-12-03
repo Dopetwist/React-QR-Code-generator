@@ -22,7 +22,7 @@ function QrCode() {
     const [ hidden, setHidden ] = useState(true);
     const [ dark, setDark ] = useState(false);
 
-    const qrRef = useRef();
+    const qrRef = useRef(null);
 
     const qrSize = 128;
 
@@ -234,6 +234,8 @@ function QrCode() {
                                 title={titleValue}
                                 bgColor={bgValue ? bgValue : "White"}
                                 fgColor={fgValue ? fgValue : "Black"}
+                                marginSize={4}
+                                crossOrigin="anonymous"
                                 imageSettings={{
                                     src: base64Image,
                                     x: undefined,
