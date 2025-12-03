@@ -217,7 +217,7 @@ function QrCode() {
 
 
                 {!hidden && (
-                        <div className="svg-parent">
+                        <div className="canvas-parent">
 
                             <div id="close-btn">
                                 <X
@@ -225,7 +225,7 @@ function QrCode() {
                                 />
                             </div>
 
-                            <div className="svg-con" ref={qrRef}>
+                            <div className="canvas-con" ref={qrRef}>
                                 {titleValue && <h5 className="title"> {titleValue} </h5>}
 
                                 <QRCodeSVG

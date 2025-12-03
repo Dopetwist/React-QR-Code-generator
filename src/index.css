@@ -148,7 +148,7 @@ section.checkbox label {
     display: flex;
 }
 
-.svg-parent {
+.canvas-parent {
     width: 40%;
     background-color: #fff;
     display: flex;
@@ -165,7 +165,7 @@ section.checkbox label {
     z-index: 100;
 }
 
-.svg-con {
+.canvas-con {
     width: max-content;
     background-color: #fff;
     border: 0.15rem solid #d3d3d3;
@@ -374,7 +374,7 @@ section.logo p {
         width: 60%;
     }
 
-    .svg-parent {
+    .canvas-parent {
         width: 90%;
     }
 
@@ -408,7 +408,7 @@ section.logo p {
     }
 
     .container form,
-    .svg-parent {
+    .canvas-parent {
         width: 70%;
     }
 
@@ -447,7 +447,7 @@ section.logo p {
         flex-direction: column;
     }
 
-    .svg-parent {
+    .canvas-parent {
         width: 70%;
     }
 
@@ -472,7 +472,7 @@ section.logo p {
         width: 50%;
     }
 
-    .svg-parent {
+    .canvas-parent {
         width: 60%;
     }
 
@@ -486,7 +486,7 @@ section.logo p {
         width: 40%;
     }
 
-    .svg-parent {
+    .canvas-parent {
         width: 50%;
     }
 }
