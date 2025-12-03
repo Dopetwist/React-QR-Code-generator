@@ -95,24 +95,91 @@ function QrCode() {
 
 
     // Download generated QR Code Image
+    // const handleDownload = async () => {
+
+    //     const element = qrRef.current;
+
+    //     if (!element) return;
+
+    //     const canvas = await html2canvas(element, {
+    //         useCORS: true, // supports external images/logos
+    //         allowTaint: true,
+    //         scale: 10 // increases image quality
+    //     });
+
+    //     const dataURL = canvas.toDataURL("image/png");
+    //     const link = document.createElement("a");
+    //     link.href = dataURL;
+    //     link.download = (titleValue ? `${titleValue}.png` : "qr-code.png");
+    //     link.click();
+    // };
+
+
     const handleDownload = async () => {
+        const qrElement = qrRef.current.querySelector("svg");
 
-        const element = qrRef.current;
+        if (!qrElement) return;
 
-        if (!element) return;
+        // Convert SVG to Canvas
+        const svgData = new XMLSerializer().serializeToString(qrElement);
+        const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+        const url = URL.createObjectURL(svgBlob);
 
-        const canvas = await html2canvas(element, {
-            useCORS: true, // supports external images/logos
-            allowTaint: true,
-            scale: 10 // increases image quality
-        });
+        const img = await loadImage(url);
 
-        const dataURL = canvas.toDataURL("image/png");
+        // Create final canvas
+        const canvas = document.createElement("canvas");
+        const size = qrSize + 100; // add space for title
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext("2d");
+
+        // // Fill background
+        // ctx.fillStyle = bgValue || "white";
+        // ctx.fillRect(0, 0, size, size);
+
+        // Draw QR
+        ctx.drawImage(img, 50, 50, qrSize, qrSize);
+        URL.revokeObjectURL(url);
+
+        // // Draw Title
+        if (titleValue) {
+            ctx.font = "bold 20px Arial";
+            ctx.fillStyle = fgValue || "black";
+            ctx.textAlign = "center";
+            ctx.fillText(titleValue, size / 2, 40);
+        }
+
+        // Draw Logo
+        if (base64Image) {
+            const logoImg = await loadImage(base64Image);
+            const logoSizePx = logoSize;
+            const logoPos = 50 + qrSize / 2 - logoSizePx / 2;
+
+            ctx.drawImage(logoImg, logoPos, logoPos, logoSizePx, logoSizePx);
+        }
+
+        // Export PNG
+        const pngData = canvas.toDataURL("image/png");
+
+        // Safari-safe download
         const link = document.createElement("a");
-        link.href = dataURL;
-        link.download = (titleValue ? `${titleValue}.png` : "qr-code.png");
+        link.href = pngData;
+        link.target = "_blank"; // force iPhone to open new tab
+        link.download = titleValue ? `${titleValue}.png` : "qr-code.png";
         link.click();
     };
+
+    function loadImage(src) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.onload = () => resolve(img);
+            img.src = src;
+        });
+    }
+
+
 
 
     function handleClick(event) {
@@ -235,7 +302,7 @@ function QrCode() {
                                 title={titleValue}
                                 bgColor={bgValue ? bgValue : "White"}
                                 fgColor={fgValue ? fgValue : "Black"}
-                                marginSize={4}
+                                marginSize={3}
                                 crossOrigin="anonymous"
                                 imageSettings={{
                                     src: base64Image,
