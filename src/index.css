@@ -404,6 +404,7 @@ section.logo p {
 @media (min-width: 480px) and (max-width: 679px) {
     .container {
         padding: 1rem;
+        margin-top: 1rem;
     }
 
     .container form,
