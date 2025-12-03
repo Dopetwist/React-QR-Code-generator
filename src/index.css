@@ -348,12 +348,12 @@ section.logo p {
 
 .footer {
     width: 100%;
-    font-size: 0.9rem;
     padding: 1rem;
     color: #737373;
 }
 
 .footer p {
+    font-size: 0.9rem;
     text-align: center;
 }
 
