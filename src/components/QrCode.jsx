@@ -22,7 +22,7 @@ function QrCode() {
     const [ hidden, setHidden ] = useState(true);
     const [ dark, setDark ] = useState(false);
 
-    const qrRef = useRef(null);
+    const qrRef = useRef();
 
     const qrSize = 128;
 
@@ -102,10 +102,10 @@ function QrCode() {
         if (!element) return;
 
         const canvas = await html2canvas(element, {
-            proxy: {base64Image},
             useCORS: true, // supports external images/logos
             allowTaint: true,
-            scale: 2, // increases image quality
+            scale: 10, // increases image quality
+            imageTimeout: 15000,
             logging: true
         });
 
@@ -113,9 +113,7 @@ function QrCode() {
         const link = document.createElement("a");
         link.href = dataURL;
         link.download = (titleValue ? `${titleValue}.png` : "qr-code.png");
-        document.body.appendChild(link);
         link.click();
-        document.body.removeChild(link);
     };
 
 
