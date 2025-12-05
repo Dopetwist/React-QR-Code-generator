@@ -93,6 +93,14 @@ function QrCode() {
         document.body.style.overflow = "auto";
     }
 
+    const preloadLogo = (src) =>
+        new Promise((resolve) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = resolve;  // works even with base64
+        });
+
+
 
     // Download generated QR Code Image
     const handleDownload = async () => {
@@ -101,13 +109,28 @@ function QrCode() {
 
         if (!element) return;
 
+        // Preload the base64 image so iPhone Safari decodes it before capture
+        if (base64Image) {
+            await preloadLogo(base64Image);
+        }
+
+        // Small delay to allow iOS Safari to finish layout
+        await new Promise(r => setTimeout(r, 150));
+
         const canvas = await html2canvas(element, {
-            useCORS: true, // supports external images/logos
-            allowTaint: true,
-            scale: 10, // increases image quality
-            imageTimeout: 15000,
-            logging: true
+            useCORS: true,
+            allowTaint: false,         // IMPORTANT: disable tainting for iOS
+            scale: 3,                  // iPhones fail at scale > 3
+            backgroundColor: null     // preserves transparency
         });
+
+        // const canvas = await html2canvas(element, {
+        //     useCORS: true, // supports external images/logos
+        //     allowTaint: true,
+        //     scale: 10, // increases image quality
+        //     imageTimeout: 15000,
+        //     logging: true
+        // });
 
         const dataURL = canvas.toDataURL("image/png");
         const link = document.createElement("a");
