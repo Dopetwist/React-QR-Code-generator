@@ -159,10 +159,10 @@ section.checkbox label {
     border: 0.15rem solid #004b4b60;
     border-radius: 1rem;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    inset: 0;
+    margin: auto;
     z-index: 100;
+    height: fit-content;
 }
 
 .canvas-con {
@@ -175,6 +175,7 @@ section.checkbox label {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    transform: none !important;
 }
 
 #download-btn {
@@ -221,7 +222,7 @@ section.logo p {
 }
 
 #close-btn {
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     margin: 1rem;
