@@ -28,6 +28,8 @@ function QrCode() {
 
     const logoSize = Math.min(80, qrSize * 0.18); // adaptive size
 
+    const isMobile = screen.width < 1024;
+
 
 
     // Function to convert uploaded images to Base64
@@ -102,8 +104,8 @@ function QrCode() {
 
 
 
-    // Download generated QR Code Image
-    const handleDownload = async () => {
+    // Function to capture screenshot
+    const captureScreenshot = async () => {
 
         const element = qrRef.current;
 
@@ -117,20 +119,14 @@ function QrCode() {
         // Small delay to allow iOS Safari to finish layout
         await new Promise(r => setTimeout(r, 150));
 
-        const canvas = await html2canvas(element, {
-            useCORS: true,
-            allowTaint: false,         // IMPORTANT: disable tainting for iOS
-            scale: 3,                  // iPhones fail at scale > 3
-            backgroundColor: null     // preserves transparency
+         const canvas = await html2canvas(element, {
+            useCORS: true, // supports external images/logos
+            allowTaint: true,
+            scale: 3, // increases image quality
+            imageTimeout: 15000,
+            logging: true,
+            backgroundColor: null
         });
-
-        // const canvas = await html2canvas(element, {
-        //     useCORS: true, // supports external images/logos
-        //     allowTaint: true,
-        //     scale: 10, // increases image quality
-        //     imageTimeout: 15000,
-        //     logging: true
-        // });
 
         const dataURL = canvas.toDataURL("image/png");
         const link = document.createElement("a");
@@ -138,6 +134,35 @@ function QrCode() {
         link.download = (titleValue ? `${titleValue}.png` : "qr-code.png");
         link.click();
     };
+    
+
+    // Download generated QR Code Image
+    const handleDownload = () => {
+        if (isMobile) {
+            const viewportMeta = document.getElementById("viewportMeta");
+            const originalViewportContent = viewportMeta.getAttribute("content");
+
+            if (!viewportMeta) {
+                console.error("Viewport meta tag not found.");
+                return;
+            }
+
+            viewportMeta.setAttribute("content", "width=800"); // Temporarily modify viewport
+
+            try {
+                captureScreenshot();
+                console.log("Screenshot captured successfully.");
+            } catch (error) {
+                console.error("Error capturing screenshot: ", error);
+            } finally {
+                viewportMeta.setAttribute("content", originalViewportContent); // Restore original viewport
+                console.log("Viewport restored.");
+            }
+        } else {
+            captureScreenshot();
+            console.log("Desktop device detected.");
+        }
+    }
 
 
     // const handleDownload = async () => {
