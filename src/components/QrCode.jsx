@@ -115,13 +115,22 @@ function QrCode() {
 
         if (!element) return;
 
+        // Create final canvas
+        const canvas = document.createElement("canvas");
+        const size = qrSize + 100; // add space for title
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext("2d");
+
         // Preload the base64 image so iPhone Safari decodes it before capture
         if (base64Image) {
-            await preloadLogo(base64Image);
-            // const logoSizePx = logoSize;
-            // const logoPos = 50 + qrSize / 2 - logoSizePx / 2;
+            const logoImg = await preloadLogo(base64Image);
+            const logoSizePx = logoSize;
+            const logoPos = 50 + qrSize / 2 - logoSizePx / 2;
+
+            console.log(logoPos);
             
-            // ctx.drawImage(logoImg, logoPos, logoPos, logoSizePx, logoSizePx);
+            ctx.drawImage(logoImg, logoPos, logoPos, logoSizePx, logoSizePx);
         }
 
         // Small delay to allow iOS Safari to finish layout
