@@ -95,12 +95,14 @@ function QrCode() {
         document.body.style.overflow = "auto";
     }
 
-    const preloadLogo = (src) =>
-        new Promise((resolve) => {
+    const preloadLogo = (src) => {
+        return new Promise((resolve) => {
             const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.onload = () => resolve(img);  // works even with base64
             img.src = src;
-            img.onload = resolve;  // works even with base64
         });
+    }
 
 
 
@@ -109,30 +111,39 @@ function QrCode() {
 
         const element = qrRef.current;
 
+        const delay = isMobile ? 500 : 0;
+
         if (!element) return;
 
         // Preload the base64 image so iPhone Safari decodes it before capture
         if (base64Image) {
             await preloadLogo(base64Image);
+            // const logoSizePx = logoSize;
+            // const logoPos = 50 + qrSize / 2 - logoSizePx / 2;
+            
+            // ctx.drawImage(logoImg, logoPos, logoPos, logoSizePx, logoSizePx);
         }
 
         // Small delay to allow iOS Safari to finish layout
-        await new Promise(r => setTimeout(r, 150));
+        // await new Promise(r => setTimeout(r, 150));
 
-         const canvas = await html2canvas(element, {
-            useCORS: true, // supports external images/logos
-            allowTaint: true,
-            scale: 3, // increases image quality
-            imageTimeout: 15000,
-            logging: true,
-            backgroundColor: null
-        });
+        setTimeout(async () => {
+            const canvas = await html2canvas(element, {
+                useCORS: true, // supports external images/logos
+                allowTaint: true,
+                scale: 3, // increases image quality
+                imageTimeout: 15000,
+                logging: true,
+                backgroundColor: null
+            });
 
-        const dataURL = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-        link.href = dataURL;
-        link.download = (titleValue ? `${titleValue}.png` : "qr-code.png");
-        link.click();
+            const dataURL = canvas.toDataURL("image/png");
+            const link = document.createElement("a");
+            link.href = dataURL;
+            link.target = "_blank";
+            link.download = (titleValue ? `${titleValue}.png` : "qr-code.png");
+            link.click();
+        }, delay);
     };
     
 
