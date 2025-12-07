@@ -166,7 +166,8 @@ section.checkbox label {
 }
 
 .canvas-con {
-    width: max-content;
+    width: 9rem;
+    height: 12rem;
     background-color: #fff;
     border: 0.15rem solid #d3d3d3;
     padding: 0.5rem;
