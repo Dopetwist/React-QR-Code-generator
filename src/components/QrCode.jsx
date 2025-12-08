@@ -22,13 +22,16 @@ function QrCode() {
     const [ hidden, setHidden ] = useState(true);
     const [ dark, setDark ] = useState(false);
 
+    const [ qrPNG, setQrPNG ] = useState(null);
+
     const qrRef = useRef();
+    const qrRefSVG = useRef();
 
     const qrSize = 128;
 
     const logoSize = Math.min(80, qrSize * 0.18); // adaptive size
 
-    const isMobile = screen.width < 1024;
+    // const isMobile = screen.width < 1024;
 
 
 
@@ -65,6 +68,34 @@ function QrCode() {
     }, []);
 
 
+    useEffect(() => {
+        if (!qrRefSVG.current) return;
+
+        const svg = qrRefSVG.current;
+        const svgData = new XMLSerializer().serializeToString(svg);
+        const pngUrl = "data:image/svg+xml;base64," + btoa(svgData);
+
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+
+        img.onload = () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = qrSize * 3;
+            canvas.height = qrSize * 3;
+
+            const ctx = canvas.getContext("2d");
+            ctx.scale(3, 3);
+            ctx.drawImage(img, 0, 0);
+
+            const finalPNG = canvas.toDataURL("image/png");
+            setQrPNG(finalPNG);
+        };
+
+        img.src = pngUrl;
+    }, [inputValue, titleValue, bgValue, fgValue, qrSize, base64Image, logoSize, checkExcavate]);
+
+
+
     const handleChange = (e) => {
         setInputValue(e.target.value);
     };
@@ -95,94 +126,121 @@ function QrCode() {
         document.body.style.overflow = "auto";
     }
 
-    const preloadLogo = (src) => {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.crossOrigin = "anonymous";
-            img.onload = () => resolve(img);  // works even with base64
-            img.src = src;
-        });
-    }
+    // Download generated QR Code Image
+    const handleDownload = async () => {
+        const element = qrRef.current;
+
+        if (!element) return;
+
+        const canvas = await html2canvas(element, {
+            scale: 3,
+            useCORS: true,
+            backgroundColor: null
+        })
+
+        const dataURL = canvas.toDataURL("image/png");
+
+        const link = document.createElement("a");
+        link.href = dataURL;
+        link.target = "_blank";
+        link.download = titleValue ? `${titleValue}.png` : "qr-code.png";
+        link.click();
+    };
+
+
+    // Download generated QR Code Image
+    // const handleDownload = () => {
+    //     const canvas = document.getElementById("qr-canvas");
+
+    //     if (!canvas) return;
+
+    //     try {
+    //         const dataURL = canvas.toDataURL("image/png");
+    //         const link = document.createElement("a");
+    //         link.href = dataURL;
+    //         link.target = "_blank";
+    //         link.download = (titleValue ? `${titleValue}.png` : "qr-code.png");
+    //         link.click();
+    //     } catch (error) {
+    //         console.log("The error is:", error);
+    //     }
+    // }
+
+    // const preloadLogo = (src) => {
+    //     return new Promise((resolve) => {
+    //         const img = new Image();
+    //         img.crossOrigin = "anonymous";
+    //         img.onload = () => resolve(img);  // works even with base64
+    //         img.src = src;
+    //     });
+    // }
 
 
 
     // Function to capture screenshot
-    const captureScreenshot = async () => {
+    // const captureScreenshot = async () => {
 
-        const element = qrRef.current;
+    //     const element = qrRef.current;
 
-        const delay = isMobile ? 500 : 0;
+    //     const delay = isMobile ? 500 : 0;
 
-        if (!element) return;
+    //     if (!element) return;
 
-        // Create final canvas
-        const canvas = document.createElement("canvas");
-        const size = qrSize + 100; // add space for title
-        canvas.width = size;
-        canvas.height = size;
-        const ctx = canvas.getContext("2d");
+    //     // Preload the base64 image so iPhone Safari decodes it before capture
+    //     if (base64Image) {
+    //         await preloadLogo(base64Image);
+    //     }
 
-        // Preload the base64 image so iPhone Safari decodes it before capture
-        if (base64Image) {
-            const logoImg = await preloadLogo(base64Image);
-            const logoSizePx = logoSize;
-            const logoPos = 50 + qrSize / 2 - logoSizePx / 2;
+    //     // Small delay to allow iOS Safari to finish layout
+    //     // await new Promise(r => setTimeout(r, 150));
 
-            console.log(logoPos);
-            
-            ctx.drawImage(logoImg, logoPos, logoPos, logoSizePx, logoSizePx);
-        }
+    //     setTimeout(async () => {
+    //         const canvas = await html2canvas(element, {
+    //             useCORS: true, // supports external images/logos
+    //             allowTaint: true,
+    //             scale: 3, // increases image quality
+    //             imageTimeout: 15000,
+    //             logging: true,
+    //             backgroundColor: null
+    //         });
 
-        // Small delay to allow iOS Safari to finish layout
-        // await new Promise(r => setTimeout(r, 150));
-
-        setTimeout(async () => {
-            const canvas = await html2canvas(element, {
-                useCORS: true, // supports external images/logos
-                allowTaint: true,
-                scale: 3, // increases image quality
-                imageTimeout: 15000,
-                logging: true,
-                backgroundColor: null
-            });
-
-            const dataURL = canvas.toDataURL("image/png");
-            const link = document.createElement("a");
-            link.href = dataURL;
-            link.target = "_blank";
-            link.download = (titleValue ? `${titleValue}.png` : "qr-code.png");
-            link.click();
-        }, delay);
-    };
+    //         const dataURL = canvas.toDataURL("image/png");
+    //         const link = document.createElement("a");
+    //         link.href = dataURL;
+    //         link.target = "_blank";
+    //         link.download = (titleValue ? `${titleValue}.png` : "qr-code.png");
+    //         link.click();
+    //     }, delay);
+    // };
     
 
     // Download generated QR Code Image
-    const handleDownload = () => {
-        if (isMobile) {
-            const viewportMeta = document.getElementById("viewportMeta");
-            const originalViewportContent = viewportMeta.getAttribute("content");
+    // const handleDownload = () => {
+    //     if (isMobile) {
+    //         const viewportMeta = document.getElementById("viewportMeta");
+    //         const originalViewportContent = viewportMeta.getAttribute("content");
 
-            if (!viewportMeta) {
-                console.error("Viewport meta tag not found.");
-                return;
-            }
+    //         if (!viewportMeta) {
+    //             console.error("Viewport meta tag not found.");
+    //             return;
+    //         }
 
-            viewportMeta.setAttribute("content", "width=800"); // Temporarily modify viewport
+    //         viewportMeta.setAttribute("content", "width=800"); // Temporarily modify viewport
 
-            try {
-                captureScreenshot();
-                console.log("Screenshot captured successfully.");
-            } catch (error) {
-                console.error("Error capturing screenshot: ", error);
-            } finally {
-                viewportMeta.setAttribute("content", originalViewportContent); // Restore original viewport
-                console.log("Viewport restored.");
-            }
-        } else {
-            captureScreenshot();
-            console.log("Desktop device detected.");
-        }
-    }
+    //         try {
+    //             captureScreenshot();
+    //             console.log("Screenshot captured successfully.");
+    //         } catch (error) {
+    //             console.error("Error capturing screenshot: ", error);
+    //         } finally {
+    //             viewportMeta.setAttribute("content", originalViewportContent); // Restore original viewport
+    //             console.log("Viewport restored.");
+    //         }
+    //     } else {
+    //         captureScreenshot();
+    //         console.log("Desktop device detected.");
+    //     }
+    // }
 
 
     // const handleDownload = async () => {
@@ -366,24 +424,36 @@ function QrCode() {
                             <div className="canvas-con" ref={qrRef}>
                                 {titleValue && <h5 className="title"> {titleValue} </h5>}
 
-                                <QRCodeSVG
-                                size={qrSize}
-                                value={inputValue}
-                                title={titleValue}
-                                bgColor={bgValue ? bgValue : "White"}
-                                fgColor={fgValue ? fgValue : "Black"}
-                                marginSize={3}
-                                crossOrigin="anonymous"
-                                imageSettings={{
-                                    src: base64Image,
-                                    x: undefined,
-                                    y: undefined,
-                                    height: logoSize,
-                                    width: logoSize,
-                                    opacity: 1,
-                                    excavate: !checkExcavate
-                                }}
-                                />
+
+                                {qrPNG ? (
+                                    <img 
+                                        src={qrPNG} 
+                                        alt="qr" 
+                                        width={qrSize}
+                                        height={qrSize}
+                                    />
+                                ) : (
+                                    <QRCodeSVG
+                                        ref={qrRefSVG}
+                                        size={qrSize}
+                                        value={inputValue}
+                                        title={titleValue}
+                                        bgColor={bgValue ? bgValue : "White"}
+                                        fgColor={fgValue ? fgValue : "Black"}
+                                        marginSize={3}
+                                        imageSettings={{
+                                            src: base64Image,
+                                            x: undefined,
+                                            y: undefined,
+                                            height: logoSize,
+                                            width: logoSize,
+                                            opacity: 1,
+                                            excavate: !checkExcavate
+                                        }}
+                                    />
+                                )}
+
+                                
                             </div>
 
                             <button 
