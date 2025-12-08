@@ -354,7 +354,15 @@ function QrCode() {
 
 
                 {!hidden && (
-                    <QRDownload />
+                    <QRDownload
+                        inputValue={inputValue}
+                        titleValue={titleValue}
+                        bgValue={bgValue}
+                        fgValue={fgValue}
+                        base64Image={base64Image}
+                        checkExcavate={checkExcavate}
+                        handleClose={handleClose}
+                    />
                 )}
             </div>
         </div>

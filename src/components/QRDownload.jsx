@@ -1,22 +1,30 @@
-import { useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { X, Download } from "lucide-react";
 import html2canvas from "html2canvas";
 
-function QRDownload() {
+function QRDownload({
+        inputValue,
+        titleValue,
+        bgValue,
+        fgValue,
+        base64Image,
+        checkExcavate,
+        handleClose
+    }) {
     const [ qrPNG, setQrPNG ] = useState(null);
 
     const qrRef = useRef();
-    const qrRefSVG = useRef();
 
     const qrSize = 128;
 
     const logoSize = Math.min(80, qrSize * 0.18); // adaptive size
 
     useEffect(() => {
-        if (!qrRefSVG.current) return;
 
-        const svg = qrRefSVG.current;
+        const svg = qrRef.current.querySelector("svg");
+        if (!svg) return;
+
         const svgData = new XMLSerializer().serializeToString(svg);
         const pngUrl = "data:image/svg+xml;base64," + btoa(svgData);
 
@@ -39,6 +47,7 @@ function QRDownload() {
         img.src = pngUrl;
     }, [inputValue, titleValue, bgValue, fgValue, qrSize, base64Image, logoSize, checkExcavate]);
 
+    
     // Download generated QR Code Image
     const handleDownload = async () => {
         const element = qrRef.current;
@@ -72,34 +81,33 @@ function QRDownload() {
             <div className="canvas-con" ref={qrRef}>
                 {titleValue && <h5 className="title"> {titleValue} </h5>}
 
+                // Present but invisible SVG
+                <div style={{ opacity: 0, position: "absolute", pointerEvents: "none" }}>
+                    <QRCodeSVG
+                        size={qrSize}
+                        value={inputValue}
+                        title={titleValue}
+                        bgColor={bgValue ? bgValue : "White"}
+                        fgColor={fgValue ? fgValue : "Black"}
+                        marginSize={3}
+                        imageSettings={{
+                            src: base64Image,
+                            height: logoSize,
+                            width: logoSize,
+                            excavate: !checkExcavate
+                        }}
+                    />
+                </div>
 
-                {qrPNG ? (
+                // Display PNG Image after SVG conversion
+                {qrPNG && (
                     <img 
                         src={qrPNG} 
                         alt="qr" 
                         width={qrSize}
                         height={qrSize}
                     />
-                    ) : (
-                        <QRCodeSVG
-                            ref={qrRefSVG}
-                            size={qrSize}
-                            value={inputValue}
-                            title={titleValue}
-                            bgColor={bgValue ? bgValue : "White"}
-                            fgColor={fgValue ? fgValue : "Black"}
-                            marginSize={3}
-                            imageSettings={{
-                                src: base64Image,
-                                x: undefined,
-                                y: undefined,
-                                height: logoSize,
-                                width: logoSize,
-                                opacity: 1,
-                                excavate: !checkExcavate
-                            }}
-                        />
-               )}
+                )}
 
                                 
             </div>
