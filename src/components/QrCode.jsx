@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import { useRef } from "react";
-import { QRCodeSVG } from "qrcode.react";
-import { X, Download } from "lucide-react";
-import html2canvas from "html2canvas";
 import ImgFile from "./ImgFile";
 import LinkInput from "./LinkInput";
 import TitleInput from "./TitleInput";
 import BgInput from "./BgInput";
 import FgInput from "./FgInput";
 import Button from "./Button";
+import QRDownload from "./QRDownload";
 
 function QrCode() {
 
@@ -22,14 +19,6 @@ function QrCode() {
     const [ hidden, setHidden ] = useState(true);
     const [ dark, setDark ] = useState(false);
 
-    const [ qrPNG, setQrPNG ] = useState(null);
-
-    const qrRef = useRef();
-    const qrRefSVG = useRef();
-
-    const qrSize = 128;
-
-    const logoSize = Math.min(80, qrSize * 0.18); // adaptive size
 
     // const isMobile = screen.width < 1024;
 
@@ -68,34 +57,6 @@ function QrCode() {
     }, []);
 
 
-    useEffect(() => {
-        if (!qrRefSVG.current) return;
-
-        const svg = qrRefSVG.current;
-        const svgData = new XMLSerializer().serializeToString(svg);
-        const pngUrl = "data:image/svg+xml;base64," + btoa(svgData);
-
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-
-        img.onload = () => {
-            const canvas = document.createElement("canvas");
-            canvas.width = qrSize * 3;
-            canvas.height = qrSize * 3;
-
-            const ctx = canvas.getContext("2d");
-            ctx.scale(3, 3);
-            ctx.drawImage(img, 0, 0);
-
-            const finalPNG = canvas.toDataURL("image/png");
-            setQrPNG(finalPNG);
-        };
-
-        img.src = pngUrl;
-    }, [inputValue, titleValue, bgValue, fgValue, qrSize, base64Image, logoSize, checkExcavate]);
-
-
-
     const handleChange = (e) => {
         setInputValue(e.target.value);
     };
@@ -126,27 +87,7 @@ function QrCode() {
         document.body.style.overflow = "auto";
     }
 
-    // Download generated QR Code Image
-    const handleDownload = async () => {
-        const element = qrRef.current;
-
-        if (!element) return;
-
-        const canvas = await html2canvas(element, {
-            scale: 3,
-            useCORS: true,
-            backgroundColor: null
-        })
-
-        const dataURL = canvas.toDataURL("image/png");
-
-        const link = document.createElement("a");
-        link.href = dataURL;
-        link.target = "_blank";
-        link.download = titleValue ? `${titleValue}.png` : "qr-code.png";
-        link.click();
-    };
-
+    
 
     // Download generated QR Code Image
     // const handleDownload = () => {
@@ -413,61 +354,7 @@ function QrCode() {
 
 
                 {!hidden && (
-                        <div className="canvas-parent">
-
-                            <div id="close-btn">
-                                <X
-                                onClick={handleClose} 
-                                />
-                            </div>
-
-                            <div className="canvas-con" ref={qrRef}>
-                                {titleValue && <h5 className="title"> {titleValue} </h5>}
-
-
-                                {qrPNG ? (
-                                    <img 
-                                        src={qrPNG} 
-                                        alt="qr" 
-                                        width={qrSize}
-                                        height={qrSize}
-                                    />
-                                ) : (
-                                    <QRCodeSVG
-                                        ref={qrRefSVG}
-                                        size={qrSize}
-                                        value={inputValue}
-                                        title={titleValue}
-                                        bgColor={bgValue ? bgValue : "White"}
-                                        fgColor={fgValue ? fgValue : "Black"}
-                                        marginSize={3}
-                                        imageSettings={{
-                                            src: base64Image,
-                                            x: undefined,
-                                            y: undefined,
-                                            height: logoSize,
-                                            width: logoSize,
-                                            opacity: 1,
-                                            excavate: !checkExcavate
-                                        }}
-                                    />
-                                )}
-
-                                
-                            </div>
-
-                            <button 
-                            onClick={handleDownload}
-                            id="download-btn"
-                            > 
-                                <Download
-                                id="download-icon"
-                                size={17} 
-                                />
-
-                                Download 
-                            </button>
-                        </div>
+                    <QRDownload />
                 )}
             </div>
         </div>
