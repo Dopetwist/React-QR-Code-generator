@@ -81,7 +81,7 @@ function QRDownload({
             <div className="canvas-con" ref={qrRef}>
                 {titleValue && <h5 className="title"> {titleValue} </h5>}
 
-                // Present but invisible SVG
+                {/* Present but invisible SVG */}
                 <div style={{ opacity: 0, position: "absolute", pointerEvents: "none" }}>
                     <QRCodeSVG
                         size={qrSize}
@@ -99,7 +99,7 @@ function QRDownload({
                     />
                 </div>
 
-                // Display PNG Image after SVG conversion
+                {/* Display PNG Image after SVG conversion */}
                 {qrPNG && (
                     <img 
                         src={qrPNG} 
