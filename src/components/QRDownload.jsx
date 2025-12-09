@@ -22,35 +22,80 @@ function QRDownload({
 
     useEffect(() => {
 
-        const svg = qrRef.current.querySelector("svg");
-        if (!svg) return;
+        const qrFunction = async () => {
+            const svg = qrRef.current.querySelector("svg");
+            if (!svg) return;
 
-        const svgData = new XMLSerializer().serializeToString(svg);
-        const pngUrl = "data:image/svg+xml;base64," + btoa(svgData);
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+            const url = URL.createObjectURL(svgBlob);
+            // const pngUrl = "data:image/svg+xml;base64," + btoa(svgData);
 
-        const img = new Image();
-        img.crossOrigin = "anonymous";
+            // const img = new Image();
+            // img.crossOrigin = "anonymous";
 
-        img.onload = () => {
+            const img = await loadImage(url);
+
             const canvas = document.createElement("canvas");
-            canvas.width = qrSize * 3;
-            canvas.height = qrSize * 3;
-
+            const size = qrSize + 100; // add space for title
+            canvas.width = size;
+            canvas.height = size;
             const ctx = canvas.getContext("2d");
-            ctx.scale(3, 3);
-            ctx.drawImage(img, 0, 0);
+
+            // Draw QR
+            ctx.drawImage(img, 50, 50, qrSize, qrSize);
+            URL.revokeObjectURL(url);
+
+            // Draw Logo
+            if (base64Image) {
+                const logoImg = await loadImage(base64Image);
+                const logoSizePx = logoSize;
+                const logoPos = 50 + qrSize / 2 - logoSizePx / 2;
+
+                ctx.drawImage(logoImg, logoPos, logoPos, logoSizePx, logoSizePx);
+            }
 
             const finalPNG = canvas.toDataURL("image/png");
             setQrPNG(finalPNG);
-        };
 
-        img.src = pngUrl;
+            // console.log(finalPNG);
+
+            // img.onload = () => {
+            //     const canvas = document.createElement("canvas");
+            //     canvas.width = qrSize * 3;
+            //     canvas.height = qrSize * 3;
+
+            //     const ctx = canvas.getContext("2d");
+            //     ctx.scale(3, 3);
+            //     ctx.drawImage(img, 0, 0);
+
+            //     const finalPNG = canvas.toDataURL("image/png");
+            //     setQrPNG(finalPNG);
+            // };
+
+            // img.src = pngUrl;
+        }
+
+        qrFunction();
     }, [inputValue, titleValue, bgValue, fgValue, qrSize, base64Image, logoSize, checkExcavate]);
 
+
+    function loadImage(src) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.onload = () => resolve(img);
+            img.src = src;
+        });
+    }
     
     // Download generated QR Code Image
     const handleDownload = async () => {
         const element = qrRef.current;
+
+        // console.log(element);
+
+        console.log(qrPNG);
 
         if (!element) return;
 
@@ -61,6 +106,8 @@ function QRDownload({
         })
 
         const dataURL = canvas.toDataURL("image/png");
+
+        // console.log(dataURL);
 
         const link = document.createElement("a");
         link.href = dataURL;
