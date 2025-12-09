@@ -21,63 +21,58 @@ function QRDownload({
     const logoSize = Math.min(80, qrSize * 0.18); // adaptive size
 
     useEffect(() => {
-
         const qrFunction = async () => {
-            const svg = qrRef.current.querySelector("svg");
+            const svg = qrRef.current?.querySelector("svg");
             if (!svg) return;
+
+            // Desired display size (in CSS pixels)
+            const displayPx = qrSize; // <-- change this to the size you want the image to display at
+            // Pixel density scale (retina)
+            const DPR = 3; // increase number for extra sharpness
+
+            // Canvas pixel size (intrinsic PNG size)
+            const canvasPx = displayPx * DPR;
 
             const svgData = new XMLSerializer().serializeToString(svg);
             const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
             const url = URL.createObjectURL(svgBlob);
-            // const pngUrl = "data:image/svg+xml;base64," + btoa(svgData);
 
-            // const img = new Image();
-            // img.crossOrigin = "anonymous";
+            try {
+                const img = await loadImage(url); // existing helper that returns a Promise<HTMLImageElement>
 
-            const img = await loadImage(url);
+                const canvas = document.createElement("canvas");
+                canvas.width = canvasPx;
+                canvas.height = canvasPx;
 
-            const canvas = document.createElement("canvas");
-            const size = qrSize + 100; // add space for title
-            canvas.width = size;
-            canvas.height = size;
-            const ctx = canvas.getContext("2d");
+                const ctx = canvas.getContext("2d");
 
-            // Draw QR
-            ctx.drawImage(img, 50, 50, qrSize, qrSize);
-            URL.revokeObjectURL(url);
+                // Scale the drawing so 1 CSS px maps correctly to DPR pixels
+                ctx.scale(DPR, DPR);
 
-            // Draw Logo
-            if (base64Image) {
-                const logoImg = await loadImage(base64Image);
-                const logoSizePx = logoSize;
-                const logoPos = 50 + qrSize / 2 - logoSizePx / 2;
+                // Calculate padding if needed (previously used 50). We'll use no extra padding here.
+                // Draw the SVG into a display-size box (displayPx x displayPx)
+                ctx.drawImage(img, 0, 0, displayPx, displayPx);
 
-                ctx.drawImage(logoImg, logoPos, logoPos, logoSizePx, logoSizePx);
+                // Draw logo centered on top (optional)
+                if (base64Image) {
+                    const logoImg = await loadImage(base64Image);
+                    const logoSizeCss = logoSize // css px logo size
+                    const logoPosCss = (displayPx / 2) - (logoSizeCss / 2);
+
+                    // draw at CSS-coordinates — ctx already scaled by DPR
+                    ctx.drawImage(logoImg, logoPosCss, logoPosCss, logoSizeCss, logoSizeCss);
+                }
+
+                const finalPNG = canvas.toDataURL("image/png");
+                setQrPNG(finalPNG);
+            } finally {
+                URL.revokeObjectURL(url);
             }
-
-            const finalPNG = canvas.toDataURL("image/png");
-            setQrPNG(finalPNG);
-
-            // console.log(finalPNG);
-
-            // img.onload = () => {
-            //     const canvas = document.createElement("canvas");
-            //     canvas.width = qrSize * 3;
-            //     canvas.height = qrSize * 3;
-
-            //     const ctx = canvas.getContext("2d");
-            //     ctx.scale(3, 3);
-            //     ctx.drawImage(img, 0, 0);
-
-            //     const finalPNG = canvas.toDataURL("image/png");
-            //     setQrPNG(finalPNG);
-            // };
-
-            // img.src = pngUrl;
-        }
+        };
 
         qrFunction();
     }, [inputValue, titleValue, bgValue, fgValue, qrSize, base64Image, logoSize, checkExcavate]);
+
 
 
     function loadImage(src) {
@@ -92,10 +87,6 @@ function QRDownload({
     // Download generated QR Code Image
     const handleDownload = async () => {
         const element = qrRef.current;
-
-        // console.log(element);
-
-        console.log(qrPNG);
 
         if (!element) return;
 
@@ -149,7 +140,7 @@ function QRDownload({
                 {/* Display PNG Image after SVG conversion */}
                 {qrPNG && (
                     <img 
-                        src={qrPNG} 
+                        src={qrPNG}
                         alt="qr" 
                         width={qrSize}
                         height={qrSize}
