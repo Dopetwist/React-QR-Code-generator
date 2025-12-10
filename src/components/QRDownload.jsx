@@ -29,9 +29,10 @@ function QRDownload({
             const displayPx = qrSize; // <-- change this to the size you want the image to display at
             // Pixel density scale (retina)
             const DPR = 3; // increase number for extra sharpness
+            const scale = DPR * 2; // safe for iOS
 
             // Canvas pixel size (intrinsic PNG size)
-            const canvasPx = displayPx * DPR;
+            // const canvasPx = displayPx * DPR;
 
             const svgData = new XMLSerializer().serializeToString(svg);
             const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
@@ -41,13 +42,13 @@ function QRDownload({
                 const img = await loadImage(url); // existing helper that returns a Promise<HTMLImageElement>
 
                 const canvas = document.createElement("canvas");
-                canvas.width = canvasPx;
-                canvas.height = canvasPx;
+                canvas.width = qrSize * scale;
+                canvas.height = qrSize * scale;
 
                 const ctx = canvas.getContext("2d");
 
                 // Scale the drawing so 1 CSS px maps correctly to DPR pixels
-                ctx.scale(DPR, DPR);
+                ctx.scale(scale, scale);
 
                 // Calculate padding if needed (previously used 50). We'll use no extra padding here.
                 // Draw the SVG into a display-size box (displayPx x displayPx)
