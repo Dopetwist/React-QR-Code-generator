@@ -90,15 +90,15 @@ function QRDownload({
 
         if (!element) return;
 
+        const scale = window.devicePixelRatio * 3;
+
         const canvas = await html2canvas(element, {
-            scale: 3,
+            scale: scale,
             useCORS: true,
             backgroundColor: null
         })
 
         const dataURL = canvas.toDataURL("image/png");
-
-        // console.log(dataURL);
 
         const link = document.createElement("a");
         link.href = dataURL;
