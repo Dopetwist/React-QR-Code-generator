@@ -11,6 +11,15 @@ It also consists of a QR Code Scanner that triggers the user's camera and scans 
 • CSS  
 • HTML
 
+## 🛡️ How it works:
+
+→ Insert a URL or Number into the required field  
+→ Type in a Title for easy identification  
+→ Choose an optional background or foreground color based on your preferences  
+→ Upload an image/logo to be centered on the QR Code (optional)  
+→ Generate and Download PNG into your device.
+
+
 ## ✅ Getting Started
 
 1. **Clone the repository:**
@@ -21,7 +30,8 @@ It also consists of a QR Code Scanner that triggers the user's camera and scans 
 
 2. **Install Dependencies:**
 
-   On your terminal, use the command
+   On your terminal, use the command.
+
    `npm install`
 
 4. **Start the development server:**
@@ -29,3 +39,4 @@ It also consists of a QR Code Scanner that triggers the user's camera and scans 
    * Run `npm run dev`
 
 5. Open http://localhost:5173 to view the app.
+
