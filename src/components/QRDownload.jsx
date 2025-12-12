@@ -29,7 +29,7 @@ function QRDownload({
             const displayPx = qrSize; // <-- change this to the size you want the image to display at
             // Pixel density scale (retina)
             const DPR = 3; // increase number for extra sharpness
-            const scale = DPR * 2; // safe for iOS
+            const scale = DPR * 3; // safe for iOS
 
             // Canvas pixel size (intrinsic PNG size)
             // const canvasPx = displayPx * DPR;
