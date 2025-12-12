@@ -3,7 +3,7 @@ import { Html5Qrcode } from "html5-qrcode";
 
 
 function QrScan() {
-  const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const [ isScannerOpen, setIsScannerOpen ] = useState(false);
   const scannerRef = useRef(null);
   const lockRef = useRef(false); // prevents multi-scans
 
@@ -34,7 +34,14 @@ function QrScan() {
             url = "https://" + url;
         }
 
-        window.open(url, "_blank");
+        //show dialog box before opening url
+        setTimeout(() => {
+          const openNow = confirm(`Open this link?\n${url}`);
+
+          if (openNow) {
+            window.open(url, "_blank");
+          }
+        }, 100);
 
       }
     );
