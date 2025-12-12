@@ -45,7 +45,6 @@ body {
 
 .container input {
     width: 100%;
-    font-size: 0.8rem;
     margin-top: 0.5rem;
     margin-bottom: 2rem;
     padding: 0.5rem 1rem;
@@ -72,7 +71,6 @@ section.checkbox {
 }
 
 .input-div label,
-.radioBtns input,
 .radioBtns label {
     font-size: 0.8rem;
 }
@@ -388,6 +386,10 @@ section.logo p {
         flex-direction: column;
     }
 
+    .btn, #scan-btn {
+        font-size: 0.8rem;
+    }
+
     .qr-scan {
         margin-top: 2rem;
     }
@@ -435,6 +437,10 @@ section.logo p {
 
     .scanner-container {
         width: 70%;
+    }
+
+    .btn, #scan-btn {
+        font-size: 0.8rem;
     }
 }
 
