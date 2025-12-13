@@ -122,6 +122,10 @@ section.checkbox label {
     margin-bottom: 1rem;
 }
 
+.increase-input {
+    font-size: 0.8rem;
+}
+
 .btn {
     background: linear-gradient(300deg, #008080, #0000ff);
     width: 100%;

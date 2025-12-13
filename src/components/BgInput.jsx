@@ -7,6 +7,7 @@ function BgInput(props) {
             onChange={props.changeFunc}
             value={props.text}
             id="code-bg"
+            className="increase-input"
             name="background"
             placeholder="Background Color" 
             />
