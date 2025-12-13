@@ -45,7 +45,6 @@ body {
 
 .container input {
     width: 100%;
-    margin-top: 0.5rem;
     margin-bottom: 2rem;
     padding: 0.5rem 1rem;
     border-radius: 0.6rem;
@@ -67,6 +66,8 @@ body {
 }
 
 section.checkbox {
+    display: inline-flex;
+    align-items: center;
     margin-bottom: 1rem;
 }
 
@@ -87,6 +88,10 @@ section.checkbox label {
     padding: 0;
 }
 
+.container input#excavate:hover {
+    cursor: pointer;
+}
+
 .container input#yes,
 .container input#no {
     margin-top: 0;
@@ -99,6 +104,10 @@ section.checkbox label {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    :hover {
+        cursor: pointer;
+    }
 }
 
 .container div.no {
@@ -124,6 +133,7 @@ section.checkbox label {
 
 .increase-input {
     font-size: 0.8rem;
+    margin-top: 0.5rem;
 }
 
 .btn {
@@ -146,8 +156,14 @@ section.checkbox label {
 }
 
 .radioBtns {
-    width: max-content;
-    display: flex;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.radioBtns > div {
+  display: flex;
+  align-items: center;
 }
 
 .canvas-parent {
