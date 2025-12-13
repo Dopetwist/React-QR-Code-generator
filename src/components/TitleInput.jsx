@@ -7,6 +7,7 @@ function TitleInput(props) {
             onChange={props.changeFunc}
             value={props.text} 
             id="code-title"
+            className="increase-input"
             name="title"
             placeholder="Title of the QR Code" 
             />

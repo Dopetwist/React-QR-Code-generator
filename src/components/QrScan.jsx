@@ -34,15 +34,13 @@ function QrScan() {
             url = "https://" + url;
         }
 
-        //show dialog box before opening url
-        setTimeout(() => {
-          const openNow = confirm(`Open this link?\n${url}`);
+        const isMobile = screen.width < 1024;
 
-          if (openNow) {
-            window.open(url, "_blank");
-          }
-        }, 100);
-
+        if (isMobile) {
+          window.location.href = url; //open url on same tab for mobile
+        } else {
+          window.open(url, "_blank"); //open url on a new tab for desktop
+        }
       }
     );
 

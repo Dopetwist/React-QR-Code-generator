@@ -7,6 +7,7 @@ function FgInput(props) {
             onChange={props.changeFunc}
             value={props.text}
             id="code-fg"
+            className="increase-input"
             name="foreground"
             placeholder="Foreground Color" 
             />

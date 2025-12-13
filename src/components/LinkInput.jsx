@@ -7,6 +7,7 @@ function LinkInput(props) {
             onChange={props.changeFunc}
             value={props.text}
             id="code-link"
+            className="increase-input"
             name="link"
             placeholder="Enter Link or Phone Number" 
             />         
