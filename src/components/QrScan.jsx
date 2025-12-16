@@ -7,6 +7,59 @@ function QrScan() {
   const scannerRef = useRef(null);
   const lockRef = useRef(false); // prevents multi-scans
 
+  //detect phone number
+  const isPhoneNumber = (text) => {
+    // Allows formats like:
+    // 08012345678
+    // +2348012345678
+    // tel:08012345678
+    return /^(\+?\d{7,15}|tel:\+?\d{7,15})$/.test(text.trim());
+  };
+
+  //successful scan logic
+  const onScanSuccess = async (decodedText) => {
+    await scannerRef.current?.stop(); //stop scanning after detection
+
+    const value = decodedText.trim();
+
+    // If QR contains a tel link already
+    if (value.startsWith("tel:")) {
+      window.location.href = value;
+      return;
+    }
+
+    // If QR contains a raw phone number
+    if (isPhoneNumber(value)) {
+      window.location.href = `tel:${value}`;
+      return;
+    }
+
+    if (lockRef.current) return;  // prevent multiple triggers
+    lockRef.current = true;
+
+    stopScanner();
+
+    // Open url in a new browser tab
+    let url = decodedText;
+
+    if (!url.startsWith("http")) {
+      url = "https://" + url;
+    }
+
+    //check for mobile devices
+    const isMobile = screen.width < 1024;
+
+    if (isMobile) {
+      window.location.href = url; //open url on same tab for mobile
+    } else {
+      window.open(url, "_blank"); //open url on a new tab for desktop
+    }
+
+    // Handle other QR content
+    console.log("Scanned value:", value);
+  }
+
+
   const startScanner = async () => {
     setIsScannerOpen(true);
 
@@ -22,25 +75,7 @@ function QrScan() {
         qrbox: { width: 320, height: 320 }
       },
       (decodedText) => {
-        if (lockRef.current) return;  // prevent multiple triggers
-        lockRef.current = true;
-
-        stopScanner();
-
-        // Open url in a new browser tab
-        let url = decodedText;
-
-        if (!url.startsWith("http")) {
-            url = "https://" + url;
-        }
-
-        const isMobile = screen.width < 1024;
-
-        if (isMobile) {
-          window.location.href = url; //open url on same tab for mobile
-        } else {
-          window.open(url, "_blank"); //open url on a new tab for desktop
-        }
+        onScanSuccess(decodedText);
       }
     );
 
