@@ -72,7 +72,6 @@ section.checkbox {
 }
 
 .input-div label {
-/* .radioBtns label { */
     font-size: 0.8rem;
 }
 
@@ -161,35 +160,15 @@ section.checkbox label {
   gap: 0.5rem;
 }
 
-/* .radioBtns > div {
-  display: flex;
-  align-items: center;
-} */
-
-/* DO NOT style font-size on inputs */
 .radioBtns label {
   font-size: 0.8rem;
-  /* margin-left: 6px; */
 }
 
-/* Normalize iOS radio rendering */
 .radioBtns input[type="radio"] {
   margin: 0;
   appearance: auto;
   -webkit-appearance: radio;
 }
-
-
-/* .radioBtns {
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-} */
-
-/* .radioBtns > div {
-  display: flex;
-  align-items: center;
-} */
 
 .canvas-parent {
     width: 40%;
@@ -210,8 +189,6 @@ section.checkbox label {
 
 .canvas-con {
     width: max-content;
-    /* width: 9rem;
-    height: 12rem; */
     background-color: #fff;
     border: 0.15rem solid #d3d3d3;
     padding: 0.5rem;
