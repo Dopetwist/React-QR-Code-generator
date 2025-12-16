@@ -138,6 +138,28 @@ function QrCode() {
                         <p> Insert Image on QR Code? </p>
 
                         <div className="radioBtns">
+                            <input
+                            type="radio" 
+                            id="yes" 
+                            name="logo" 
+                            value="yes"
+                            checked={radio === "yes"}
+                            onChange={() => {setRadio("yes")}}
+                            />
+                            <label htmlFor="yes">Yes</label>
+
+                            <input 
+                            type="radio" 
+                            id="no" 
+                            name="logo" 
+                            value="no"
+                            checked={radio === "no"}
+                            onChange={() => {setRadio("no")}}
+                            />
+                            <label htmlFor="no">No</label>
+                        </div>
+
+                        {/* <div className="radioBtns">
                             <div className="yes">
                                 <input
                                 type="radio" 
@@ -161,7 +183,7 @@ function QrCode() {
                                 />
                                 <label htmlFor="no">No</label>
                             </div>
-                        </div>
+                        </div> */}
                     </section>
 
                     

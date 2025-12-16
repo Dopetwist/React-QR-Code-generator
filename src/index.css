@@ -156,20 +156,20 @@ section.checkbox label {
 }
 
 .radioBtns {
-  display: inline-flex;      /* instead of flex + max-content */
+  display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 0.5rem;
 }
 
-.radioBtns > div {
+/* .radioBtns > div {
   display: flex;
-  align-items: center;       /* critical for iOS */
-}
+  align-items: center;
+} */
 
 /* DO NOT style font-size on inputs */
 .radioBtns label {
   font-size: 0.8rem;
-  margin-left: 6px;
+  /* margin-left: 6px; */
 }
 
 /* Normalize iOS radio rendering */
@@ -304,6 +304,14 @@ section.logo p {
 
 #upload-icon {
     margin-right: 0.5rem;
+}
+
+#yes, #no {
+    width: 10% !important;
+}
+
+#no {
+    margin-left: 1rem;
 }
 
 .camera {
