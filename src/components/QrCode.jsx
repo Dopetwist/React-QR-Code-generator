@@ -158,32 +158,6 @@ function QrCode() {
                             />
                             <label htmlFor="no">No</label>
                         </div>
-
-                        {/* <div className="radioBtns">
-                            <div className="yes">
-                                <input
-                                type="radio" 
-                                id="yes" 
-                                name="logo" 
-                                value="yes"
-                                checked={radio === "yes"}
-                                onChange={() => {setRadio("yes")}}
-                                />
-                                <label htmlFor="yes">Yes</label>
-                            </div>
-
-                            <div className="no">
-                                <input 
-                                type="radio" 
-                                id="no" 
-                                name="logo" 
-                                value="no"
-                                checked={radio === "no"}
-                                onChange={() => {setRadio("no")}}
-                                />
-                                <label htmlFor="no">No</label>
-                            </div>
-                        </div> */}
                     </section>
 
                     

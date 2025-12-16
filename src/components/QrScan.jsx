@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Html5Qrcode } from "html5-qrcode";
+import { X } from "lucide-react";
 
 
 function QrScan() {
@@ -49,51 +50,6 @@ function QrScan() {
   const callNumber = () => {
     window.location.href = `tel:${phone}`;
   };
-
-  //successful scan logic
-  // const onScanSuccess = async (decodedText) => {
-  //   await scannerRef.current?.stop(); //stop scanning after detection
-
-  //   const value = decodedText.trim();
-
-  //   // // If QR contains a tel link already
-  //   // if (value.startsWith("tel:")) {
-  //   //   window.location.href = value;
-  //   //   return;
-  //   // }
-
-  //   // // If QR contains a raw phone number
-  //   // if (isPhoneNumber(value)) {
-  //   //   window.location.href = `tel:${value}`;
-  //   //   return;
-  //   // }
-
-
-  //   if (lockRef.current) return;  // prevent multiple triggers
-  //   lockRef.current = true;
-
-  //   stopScanner();
-
-  //   // Open url in a new browser tab
-  //   let url = decodedText;
-
-  //   if (!url.startsWith("http")) {
-  //     url = "https://" + url;
-  //   }
-
-  //   //check for mobile devices
-  //   const isMobile = screen.width < 1024;
-
-  //   if (isMobile) {
-  //     window.location.href = url; //open url on same tab for mobile
-  //   } else {
-  //     window.open(url, "_blank"); //open url on a new tab for desktop
-  //   }
-
-  //   // Handle other QR content
-  //   console.log("Scanned value:", value);
-  // }
-
 
   const startScanner = async () => {
     setIsScannerOpen(true);
@@ -182,22 +138,24 @@ function QrScan() {
         <div className="camera">📷</div> Scan QR Code
       </button>
 
-      {phone && (
-        <div style={{ marginTop: 20 }}>
-          <h3>📱 Phone Number Detected</h3>
-          <p>{phone}</p>
-
-          <div style={{ display: "flex", gap: 10 }}>
-            <button onClick={callNumber}>
-              📞 Call
-            </button>
-
-            <button onClick={addToContacts}>
-              👤 Add to Contacts
-            </button>
-          </div>
+      <div className={`phone-container ${phone ? "show" : ""}`}>
+        <div id="close-btn">
+          <X onClick={() => {setPhone(null)}} />
         </div>
-      )}
+
+        <h3>📱 Phone Number Detected</h3>
+        <p>{phone}</p>
+
+        <div className="action-btns">
+          <button onClick={callNumber}>
+            📞 Call
+          </button>
+
+          <button onClick={addToContacts}>
+            👤 Add to Contacts
+          </button>
+        </div>
+      </div>
     </>
   );
 }

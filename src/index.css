@@ -330,7 +330,8 @@ section.logo p {
     pointer-events: all;
 }
 
-.scanner-container {
+.scanner-container,
+.phone-container {
     width: 30%;
     /* max-width: 30rem; */
     display: flex;
@@ -350,10 +351,43 @@ section.logo p {
     z-index: 1000;
 }
 
-.scanner-container.show {
+.scanner-container.show,
+.phone-container.show {
     opacity: 1;
     pointer-events: all;
     transform: translate(-50%, -50%) scale(1);
+}
+
+.phone-container {
+    background-color: #008080;
+    padding: 2rem 1rem;
+}
+
+.phone-container h3, 
+.phone-container p {
+    color: #fff
+}
+
+.phone-container p {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.phone-container .action-btns {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.action-btns button {
+    padding: 0.4rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.action-btns button:hover {
+    cursor: pointer;
+    background-color: #c0c0c0;
 }
 
 .scanner-close-btn {
