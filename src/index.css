@@ -333,7 +333,6 @@ section.logo p {
 .scanner-container,
 .phone-container {
     width: 30%;
-    /* max-width: 30rem; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -369,7 +368,7 @@ section.logo p {
 }
 
 .phone-container p {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-top: 1rem;
 }
 
@@ -403,7 +402,6 @@ section.logo p {
 
 #reader {
   width: 100% !important;
-  /* max-width: 30rem; */
   height: 100% !important;
   margin: 0 auto;
   border-radius: 1rem;
@@ -465,7 +463,8 @@ section.logo p {
         flex-direction: column;
     }
 
-    .scanner-container {
+    .scanner-container,
+    .phone-container {
         width: 90%;
     }
 }
@@ -499,7 +498,8 @@ section.logo p {
         flex-direction: column;
     }
 
-    .scanner-container {
+    .scanner-container,
+    .phone-container {
         width: 70%;
     }
 
@@ -538,6 +538,10 @@ section.logo p {
     .scanner-container {
         width: 40%;
     }
+
+    .phone-container {
+        width: 60%;
+    }
 }
 
 @media (min-width: 800px) and (max-width: 1023px) {
@@ -552,6 +556,10 @@ section.logo p {
     .scanner-container {
         width: 40%;
     }
+
+    .phone-container {
+        width: 50%;
+    }
 }
 
 @media (min-width: 1024px) and (max-width: 1300px) {
@@ -561,5 +569,9 @@ section.logo p {
 
     .canvas-parent {
         width: 50%;
+    }
+
+    .phone-container {
+        width: 40%;
     }
 }

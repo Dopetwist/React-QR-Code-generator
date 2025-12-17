@@ -107,6 +107,23 @@ function QrScan() {
     };
   }, []);
 
+  // stop scroll on phone number detection
+  useEffect(() => {
+    const checkPhone = () => {
+      if (phone) {
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+    checkPhone();
+  }, [phone]);
+
+  // Handle phone container close button
+  const handleClose = () => {
+    setPhone(null);
+    document.body.style.overflow = "auto";
+  }
+
   const stopScanner = async () => {
       if (scannerRef.current) {
         try {
@@ -125,7 +142,12 @@ function QrScan() {
   return (
     <>
       {/* overlay */}
-      <div className={`scanner-overlay ${isScannerOpen ? "show" : ""}`}></div>
+      <div className={`
+      scanner-overlay 
+      ${isScannerOpen ? "show" : ""} 
+      ${phone ? "show" : ""}`
+      }>
+      </div>
 
       {/* scanner modal */}
       <div className={`scanner-container ${isScannerOpen ? "show" : ""}`}>
@@ -140,7 +162,7 @@ function QrScan() {
 
       <div className={`phone-container ${phone ? "show" : ""}`}>
         <div id="close-btn">
-          <X onClick={() => {setPhone(null)}} />
+          <X onClick={handleClose} />
         </div>
 
         <h3>📱 Phone Number Detected</h3>
