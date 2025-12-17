@@ -35,15 +35,17 @@ function QrScan() {
     const blob = new Blob([vCard], { type: "text/vcard" });
     const url = URL.createObjectURL(blob);
 
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "contact.vcf";
+    window.location.href = url;
 
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // const link = document.createElement("a");
+    // link.href = url;
+    // link.download = "contact.vcf";
 
-    URL.revokeObjectURL(url);
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+
+    // URL.revokeObjectURL(url);
   };
 
   // Call number

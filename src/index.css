@@ -360,6 +360,7 @@ section.logo p {
 .phone-container {
     background-color: #008080;
     padding: 2rem 1rem;
+    border: 0.18rem solid #03d1d1;
 }
 
 .phone-container h3, 
@@ -466,6 +467,10 @@ section.logo p {
     .scanner-container,
     .phone-container {
         width: 90%;
+    }
+
+    .footer p {
+        font-size: 0.8rem;
     }
 }
 
