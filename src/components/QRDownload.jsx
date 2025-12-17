@@ -112,9 +112,7 @@ function QRDownload({
         <div className="canvas-parent">
 
             <div id="close-btn">
-                <X
-                onClick={handleClose} 
-                />
+                <X onClick={handleClose} />
             </div>
 
             <div className="canvas-con" ref={qrRef}>

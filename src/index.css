@@ -330,9 +330,9 @@ section.logo p {
     pointer-events: all;
 }
 
-.scanner-container {
+.scanner-container,
+.phone-container {
     width: 30%;
-    /* max-width: 30rem; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -350,10 +350,43 @@ section.logo p {
     z-index: 1000;
 }
 
-.scanner-container.show {
+.scanner-container.show,
+.phone-container.show {
     opacity: 1;
     pointer-events: all;
     transform: translate(-50%, -50%) scale(1);
+}
+
+.phone-container {
+    background-color: #008080;
+    padding: 2rem 1rem;
+}
+
+.phone-container h3, 
+.phone-container p {
+    color: #fff
+}
+
+.phone-container p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+.phone-container .action-btns {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.action-btns button {
+    padding: 0.4rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.action-btns button:hover {
+    cursor: pointer;
+    background-color: #c0c0c0;
 }
 
 .scanner-close-btn {
@@ -369,7 +402,6 @@ section.logo p {
 
 #reader {
   width: 100% !important;
-  /* max-width: 30rem; */
   height: 100% !important;
   margin: 0 auto;
   border-radius: 1rem;
@@ -431,7 +463,8 @@ section.logo p {
         flex-direction: column;
     }
 
-    .scanner-container {
+    .scanner-container,
+    .phone-container {
         width: 90%;
     }
 }
@@ -465,7 +498,8 @@ section.logo p {
         flex-direction: column;
     }
 
-    .scanner-container {
+    .scanner-container,
+    .phone-container {
         width: 70%;
     }
 
@@ -504,6 +538,10 @@ section.logo p {
     .scanner-container {
         width: 40%;
     }
+
+    .phone-container {
+        width: 60%;
+    }
 }
 
 @media (min-width: 800px) and (max-width: 1023px) {
@@ -518,6 +556,10 @@ section.logo p {
     .scanner-container {
         width: 40%;
     }
+
+    .phone-container {
+        width: 50%;
+    }
 }
 
 @media (min-width: 1024px) and (max-width: 1300px) {
@@ -527,5 +569,9 @@ section.logo p {
 
     .canvas-parent {
         width: 50%;
+    }
+
+    .phone-container {
+        width: 40%;
     }
 }
