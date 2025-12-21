@@ -27,15 +27,15 @@ function QrScan() {
 
   // Add to Contacts
   const addToContacts = () => {
-    const vCard = generateVCard({
-      name: "Scanned Contact",
-      phone
-    });
 
-    const blob = new Blob([vCard], { type: "text/vcard" });
-    const url = URL.createObjectURL(blob);
+    alert("Currently not available. Use the 'Call' option instead.");
+    // const vCard = generateVCard({
+    //   name: "Scanned Contact",
+    //   phone
+    // });
 
-    window.location.href = url;
+    // const blob = new Blob([vCard], { type: "text/vcard" });
+    // const url = URL.createObjectURL(blob);
 
     // const link = document.createElement("a");
     // link.href = url;
