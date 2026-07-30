@@ -218,6 +218,11 @@ section.checkbox label {
    background-color: #0404b6;
 }
 
+#download-btn.downloading {
+    cursor: not-allowed;
+    background-color: #01016c;
+}
+
 #download-icon {
     margin-right: 0.5rem;
 }

@@ -13,6 +13,7 @@ function QRDownload({
         handleClose
     }) {
     const [ qrPNG, setQrPNG ] = useState(null);
+    const [ downloading, setDownloading ] = useState(false);
 
     const qrRef = useRef();
 
@@ -92,6 +93,7 @@ function QRDownload({
         if (!element) return;
 
         const scale = window.devicePixelRatio * 3;
+        setDownloading(true);
 
         const canvas = await html2canvas(element, {
             scale: scale,
@@ -106,6 +108,8 @@ function QRDownload({
         link.target = "_blank";
         link.download = titleValue ? `${titleValue}.png` : "qr-code.png";
         link.click();
+
+        setDownloading(false);
     };
 
     return (
@@ -150,15 +154,17 @@ function QRDownload({
             </div>
 
             <button 
-                onClick={handleDownload}
-                id="download-btn"
-                > 
+            onClick={handleDownload}
+            className={downloading ? "downloading" : ""}
+            id="download-btn"
+            disabled={downloading}
+            > 
                 <Download
                 id="download-icon"
                 size={17} 
                 />
 
-                Download 
+                {downloading ? "Downloading..." : "Download"} 
             </button>
         </div>
     )
